@@ -20,9 +20,23 @@ QIITAは今の所は安泰ですが20年後にどうなっているか分かり�
 [GITHUB更新方法(備忘録)](https://qiita.com/earthen94/items/a69072825c00c9edbb9f)
 
 
-articles
+レポジトリ作成「https://github.com/ooe1220/articles.git」を作成した。
 
-レポジトリ作成
-「https://github.com/ooe1220/articles.git」
+![newrepo.png](https://raw.githubusercontent.com/ooe1220/articles/master/20260131QIITA%E8%A8%98%E4%BA%8B%E3%82%92GITHUB%E4%B8%8A%E3%81%AB%E4%BF%9D%E5%AD%98/newrepo.png)
+
+コミットします。
+![folder.png](https://raw.githubusercontent.com/ooe1220/articles/master/20260131QIITA%E8%A8%98%E4%BA%8B%E3%82%92GITHUB%E4%B8%8A%E3%81%AB%E4%BF%9D%E5%AD%98/folder.png)
+
+コミット後にURLが生成されるので以下の形式で画像を貼り付けます。(この記事が参照している画像は全てGITHUB上にあります)
+```
+![folder.png](https://raw.githubusercontent.com/ooe1220/articles/master/20260131QIITA%E8%A8%98%E4%BA%8B%E3%82%92GITHUB%E4%B8%8A%E3%81%AB%E4%BF%9D%E5%AD%98/folder.png)
+```
+
+※URLを絶対パスにしたいので一旦コミットしてから、記事のURLを編集して再度コミットする流れになります。
+　絶対にもっと良い方法があるはずですが、まだ慣れていないのでこの方法で進めます。
+
+
+
+
 
 
