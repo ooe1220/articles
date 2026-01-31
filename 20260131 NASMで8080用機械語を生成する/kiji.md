@@ -244,6 +244,6 @@ STA 6007h
 
 # 動作
 
-![0abc12f8620c18.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/4054974/a476e047-66d1-439a-9643-533b44ea9b1c.jpeg)
-
+![0abc12f8620c18.png](https://raw.githubusercontent.com/ooe1220/articles/master/20260131%20NASM%E3%81%A78080%E7%94%A8%E6%A9%9F%E6%A2%B0%E8%AA%9E%E3%82%92%E7%94%9F%E6%88%90%E3%81%99%E3%82%8B/0abc12f8620c18.jpg
+)
 

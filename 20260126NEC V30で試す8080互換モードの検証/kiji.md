@@ -15,8 +15,7 @@ v30はNECが製造していた8086互換CPUですが、インテルの本家`808
 筆者は`Pocket 8086`と呼ばれる復刻機を所有しているため、これを使います。
 `Pocket 8086`という製品名ではありますが、裏蓋を開けるとCPUの表にうっすらと`V30`と印字されています。
 
-![v30.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/4054974/9e3f3820-ef5d-479a-8af2-c6a33294d267.png)
-
+![v30.png](https://raw.githubusercontent.com/ooe1220/articles/master/20260126NEC%20V30%E3%81%A7%E8%A9%A6%E3%81%998080%E4%BA%92%E6%8F%9B%E3%83%A2%E3%83%BC%E3%83%89%E3%81%AE%E6%A4%9C%E8%A8%BC/v30.png)
 
 以下の手順で行います。
 1. ブートローダ上でBIOSの機能を借りて"Entering 8080 mode..."と表示し、16ビットモードで起動したことを確認する。
@@ -134,7 +133,8 @@ nasm -f bin boot.asm -o boot.bin
 qemu-system-i386 -hda boot.bin -boot a -no-reboot
 ```
 NECが拡張した部分は動かないので途中で固まります。
-![qemu.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/4054974/a539aa08-1ef3-4401-824e-e07c2f5afbf3.png)
+![qemu.png](https://raw.githubusercontent.com/ooe1220/articles/master/20260126NEC%20V30%E3%81%A7%E8%A9%A6%E3%81%998080%E4%BA%92%E6%8F%9B%E3%83%A2%E3%83%BC%E3%83%89%E3%81%AE%E6%A4%9C%E8%A8%BC/qemu.png)
+
 
 ## V30実機
 
@@ -145,5 +145,4 @@ sudo dd if=boot.bin of=/dev/sdb bs=512 count=1 conv=notrunc
 ```
 
 画面左上に`8080`と表示されました。
-![boot.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/4054974/1c701f9f-eb41-4b19-bcad-4c563447c921.png)
-
+![boot.png](https://raw.githubusercontent.com/ooe1220/articles/master/20260126NEC%20V30%E3%81%A7%E8%A9%A6%E3%81%998080%E4%BA%92%E6%8F%9B%E3%83%A2%E3%83%BC%E3%83%89%E3%81%AE%E6%A4%9C%E8%A8%BC/boot.png)

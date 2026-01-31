@@ -109,7 +109,8 @@ sudo dd if=boot.bin of=/dev/sdb bs=512 count=1 conv=notrunc
 ```
 
 画面左上に計算結果の2が表示されました。
-![V30.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/4054974/ebf32602-dc8a-4a09-ae59-52ad37ee4a30.png)
+![V30.png](https://raw.githubusercontent.com/ooe1220/articles/master/20260127V30CPU%E3%81%A78080%E3%81%AE%E6%A9%9F%E6%A2%B0%E8%AA%9E%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99%E7%92%B0%E5%A2%83%E3%82%92%E6%95%B4%E3%81%88%E3%82%8B/V30.png
+)
 
 今後はNASMを用いてマクロ経由で`8080`の機械語を生成できるようにしたいと思います。
 
