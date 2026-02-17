@@ -512,3 +512,39 @@ print:
  int 21h
 end main
 ```
+
+# 問題17：文字列長カウント
+
+.data に NULL終端文字列を用意する。
+ABCDE
+要求
+文字数を数えて CX に入れる
+条件
+SCAS / CMPS 使用禁止
+1バイトずつ読む
+文字列は書き換え禁止
+
+## 疑似命令版
+![6a76bd94c6194](https://github.com/user-attachments/assets/09239df6-edf4-4144-bd81-ff42110059c2)
+
+```MONDAI17.ASM
+.model small
+.stack 100h
+.data
+msg db 'ABCDE',0
+len equ $ - msg
+
+.code
+main:
+ mov ax,@data
+ mov ds,ax
+ mov cl,len
+ add cl,'0' ; suji->ascii
+ mov ah,0eh
+ mov al,cl
+ int 10h
+
+ mov ah,4ch
+ int 21h
+end main
+```
