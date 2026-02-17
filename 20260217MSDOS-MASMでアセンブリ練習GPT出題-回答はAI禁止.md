@@ -3,6 +3,8 @@
 出題にはAIを使いますが、回答時は技術書やWeb検索で調べるのみに留めます。
 でもどうしても分からない時には間接的に聞きます。
 
+※細かい間違いは後から気づいても直していません。
+
 # 問題1：レジスタ転送
 次の値をレジスタ操作だけで作れ。
 AX = 1234h
@@ -544,6 +546,39 @@ main:
  mov al,cl
  int 10h
 
+ mov ah,4ch
+ int 21h
+end main
+```
+
+## 1バイトずつ勘定版
+
+![78fd9494fbeb](https://github.com/user-attachments/assets/777dd0e4-cb8f-4f56-8dc2-a6b2acd17575)
+
+```MONDA172.ASM
+.model small
+.stack 100h
+.data
+msg db 'ABCDE',0
+.code
+main:
+ mov ax,@data
+ mov ds,ax
+ lea si,msg
+ mov cx,0
+count:
+ mov al,ds:[si]
+ cmp al,0
+ je done
+ inc si
+ inc cx
+ jmp count
+
+done:
+ add cl,'0' ; suji->ascii
+ mov al,cl
+ mov ah,0eh
+ int 10h
  mov ah,4ch
  int 21h
 end main
