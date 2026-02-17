@@ -380,3 +380,36 @@ loop cls
  int 21h
 end main
 ```
+
+# 問題15：カーソル移動
+画面の10行目 20列目に文字を表示せよ。
+
+![8c1729374bca4](https://github.com/user-attachments/assets/4d2d838a-360f-433b-836c-b242422f4e6a)
+
+```MONDAI15.ASM
+.model small
+.stack 100h
+.data
+.code
+main:
+ ; cursor->10,20
+ ; cursor_pos = 10*80+20 (820) =0x334
+ ; kai4byte 0x34
+ mov dx,03d4h
+ mov ax,000fh
+ out dx,al    ; out(0x3D4,0x0F)
+ mov ax,0034h
+ mov dx,03d5h
+ out dx,al    ; out(0x3D5,0x34)
+ ; joui4byte 34h
+ mov dx,03d4h
+ mov ax,000eh
+ out dx,al    ; out(0x3D4,0x0E)
+ mov dx,03d5h
+ mov ax,0003h
+ out dx,al    ; out(0x3D5,0x03)
+
+ mov ah,4fh
+ int 21h
+end main
+```
