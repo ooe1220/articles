@@ -300,6 +300,8 @@ BIOSでもDOSでもOK
 ループ必須
 比較命令必須
 
+![b98bc94d55dba8](https://github.com/user-attachments/assets/ff570a64-818e-4b01-93a6-3fa6d0998517)
+
 ```MONDAI13.ASM
 .model small
 .stack 100h
