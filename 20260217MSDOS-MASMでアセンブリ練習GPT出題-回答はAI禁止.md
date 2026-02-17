@@ -300,6 +300,7 @@ BIOSでもDOSでもOK
 ループ必須
 比較命令必須
 
+## dos版
 ![b98bc94d55dba8](https://github.com/user-attachments/assets/ff570a64-818e-4b01-93a6-3fa6d0998517)
 
 ```MONDAI13.ASM
@@ -319,6 +320,34 @@ input:
  mov dl,al
  mov ah,02h ; DL->VGA
  int 21h
+ jmp input
+
+done:
+ mov ah,4ch
+ int 21h
+end main
+```
+
+## bios版
+
+![c2b97975914078](https://github.com/user-attachments/assets/007164a3-81ef-487a-8165-3d46a686a256)
+
+```MONDA132.ASM
+.model small
+.stack 100h
+.data
+.code
+main:
+ xor ax,ax
+
+input:
+ mov ah,00h ; keyboard->AL(ascii)
+ int 16h
+
+ cmp al,1bh ; AL==ESC GOTO DONE
+ je done
+ mov ah,0eh ; AL no nakamiwo hyouji
+ int 10h
  jmp input
 
 done:
