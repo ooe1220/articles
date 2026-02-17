@@ -412,3 +412,43 @@ main:
  int 21h
 end main
 ```
+
+# Level 8：文字列とメモリ操作
+問題16：NULL終端文字列表示（自作）
+
+次の文字列を表示せよ：HELLO WORLD
+
+条件
+$ 終端は禁止
+0 終端文字列を使用
+1文字ずつ表示する
+BIOS または DOS どちらでも可
+ループ必須
+![742841f62cc21](https://github.com/user-attachments/assets/31c34338-a548-42c9-9180-c80d839da9f1)
+
+```MONDAI16.ASM
+.model small
+.stack 100h
+.data
+ str db 'HELLO WORLD',0
+.code
+main:
+ mov ax,@data ; ds wo data ni awasu
+ mov ds,ax
+ lea si,str
+
+print:
+ mov al,ds:[si]
+ cmp al,0 ; AL==0 GOTO DONE
+ je done
+
+ mov ah,0eh
+ int 10h
+ inc si
+ jmp print
+
+done:
+ mov ah,4ch
+ int 21h
+end main
+```
