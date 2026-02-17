@@ -327,3 +327,27 @@ done:
 end main
 ```
 
+# 問題14：画面クリア
+
+BIOSを使って画面をクリアせよ。
+
+![ef3445f6f2e6d](https://github.com/user-attachments/assets/32b990af-36a3-494c-807e-43408be3c4a9)
+
+```MONDAI14.ASM
+.model small
+.stack 100h
+.data
+.code
+main:
+
+ mov cx,2000 ; 80*25
+ mov al,' '
+ mov ah,0eh
+cls:
+ int 10h
+loop cls
+
+ mov ah,4ch
+ int 21h
+end main
+```
