@@ -486,3 +486,29 @@ done:
 end main
 ```
 
+## loop版
+![73020e98b10d58](https://github.com/user-attachments/assets/5a95946c-619e-4ae8-8dd9-97991d8c6067)
+
+```MONDA163.ASM
+.model small
+.stack 100h
+.data
+ msg db 'HELLO WORLD',0
+ len equ $ - msg
+.code
+main:
+ mov cx,len
+ mov ax,@data
+ mov ds,ax
+ lea si,msg
+print:
+ mov al,ds:[si]
+ mov ah,0eh
+ int 10h
+ inc si
+ loop print
+
+ mov ah,4ch
+ int 21h
+end main
+```
