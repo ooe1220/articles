@@ -764,3 +764,50 @@ count:
  int 21h
 end main
 ```
+
+# 問題23：最大値検索
+
+次の配列：3,7,2,9,4,8
+要求
+最大値を AL に入れる
+条件
+比較命令必須
+配列は変更禁止
+
+![55e70fd2787e5](https://github.com/user-attachments/assets/d86b8b56-d79b-4ee4-9b14-040973380ef1)
+![b2518a7b5e90f8](https://github.com/user-attachments/assets/7a09f922-81f3-4d64-bf2f-82799aa22c1e)
+
+```MONDAI23.ASM
+.model small
+.stack 100h
+.data
+ array db 3,7,2,9,4,8
+ len equ $-array
+.code
+main:
+ mov ax,@data
+ mov ds,ax
+ lea si,array
+ mov cx,len
+ xor ax,ax
+ xor bx,bx ; sadaichi
+count:
+ mov al,byte ptr ds:[si] ; al=array[i]
+ cmp al,bl
+ jb next ; if al<bl goto next
+ mov bl,al ;if(al>bl)bl=al saidaichi koushin
+next:
+ inc si
+ loop count
+ 
+ mov al,bl 
+ add al,'0' ; suji->ascii
+ mov ah,0eh
+ int 10h
+ mov ah,4ch
+ int 21h
+end main
+```
+
+
+
