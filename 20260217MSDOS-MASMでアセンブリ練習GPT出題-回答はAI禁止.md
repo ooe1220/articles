@@ -823,34 +823,29 @@ AL に値を入れる。
 
 ![d4e0a1403dfbe](https://github.com/user-attachments/assets/3e7f77fa-4825-4b9d-a856-2b55ae5b73e2)
 
-```MONDAI23.ASM
+```MONDAI24.ASM
 .model small
 .stack 100h
 .data
- array db 3,7,2,9,4,8
- len equ $-array
 .code
 main:
- mov ax,@data
- mov ds,ax
- lea si,array
- mov cx,len
- xor ax,ax
- xor bx,bx ; sadaichi
-count:
- mov al,byte ptr ds:[si] ; al=array[i]
- cmp al,bl
- jb next ; if al<bl goto next
- mov bl,al ;if(al>bl)bl=al saidaichi koushin
-next:
- inc si
- loop count
- 
- mov al,bl 
- add al,'0' ; suji->ascii
+ mov al,1;
+ test al,01h
+ jz guusuu
  mov ah,0eh
+ mov al,'k'
+ int 10h
+
+ mov ah,4ch
+ int 21h
+
+guusuu:
+ mov ah,0eh
+ mov al,'g'
  int 10h
  mov ah,4ch
  int 21h
+ ret
+
 end main
 ```
