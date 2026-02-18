@@ -2,7 +2,6 @@
 自分でアセンブリを書く練習をします。
 出題にはAIを使いますが、回答時は技術書やWeb検索で調べるのみに留めます。
 どうしてもコンパイルが通らない時には間接的に聞きます。
-気分に応じてMS-DOSかFreeDOSを使います。
 アセンブラは16bitMASMです。
 
 ※細かい間違いは後から気づいても直していません。
@@ -847,5 +846,41 @@ guusuu:
  int 21h
  ret
 
+end main
+```
+
+# 問題25：ビットカウント
+AL に任意の値が入っている。
+要求
+1ビットの数を数えて CL に入れる
+例：
+AL = 10110010b → 4
+![eeb58789d7fbe8](https://github.com/user-attachments/assets/ac5a8624-f0bd-468f-bbd5-ed0951941428)
+
+```MONDAI25.ASM
+.model small
+.stack 100h
+.data
+.code
+main:
+ mov al,10110010b
+ mov cx,8
+ mov bx,0
+count:
+ test al,01h
+ jz next ; if(al[i]!=1)goto next 
+ inc bx ; if(al[i]==1)bx++
+next:
+ shr al,1
+ loop count
+
+ mov cl,bl ; imihanaiga mondaijou cl ni irenaitoikenai
+ mov al,cl
+ add al,'0' ; suji->ascii
+ mov ah,0eh
+ int 10h
+
+ mov ah,4ch
+ int 21h
 end main
 ```
