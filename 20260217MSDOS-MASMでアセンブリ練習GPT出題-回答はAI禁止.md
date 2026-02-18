@@ -884,3 +884,100 @@ next:
  int 21h
 end main
 ```
+
+
+問題26：キー状態ポーリング
+要求
+キーが押されている間だけ
+'*' を表示し続ける
+条件
+BIOSの「キー有無チェック」使用
+ブロッキング入力禁止
+![c1dbdf6e6f5f58](https://github.com/user-attachments/assets/e5bc9bb2-8c9f-4487-8bb5-917c2fdffa91)
+
+```MONDAI26.ASM
+.model small
+.stack 100h
+.data
+.code
+main:
+
+input:
+ mov ah,00h
+ int 16h ; key->ascii
+ 
+ cmp al,1bh
+ je done
+ mov al,'*' ; mondaiga ascii denaku * nanode
+ mov ah,0eh
+ int 10h
+ jmp input
+
+done:
+ mov ah,4ch
+ int 21h
+end main
+```
+
+# 問題27：タイマウェイト（BIOS禁止）
+要求
+約1秒待つ
+条件
+PITポート使用OK
+ループウェイトOK
+BIOS禁止
+DOS禁止
+
+
+# 問題28：コマンドライン取得
+DOSが渡すコマンドラインを表示せよ。
+例：
+TEST.EXE HELLO
+↓
+HELLO
+条件
+PSPから取得
+INT21 使用禁止（表示以外）
+![de6603c04e9d6](https://github.com/user-attachments/assets/b74de5e3-9f12-4608-bf3d-6179738203c5)
+
+```MONDAI28.ASM
+.model small
+.stack 100h
+.data
+.code
+main:
+ xor ax,ax
+ xor cx,cx
+ mov bx,80h     ;argc
+ mov al,ds:[bx]
+ cmp al,0 ; if arvc==0 goto done
+ je done
+
+ inc bx
+ mov cl,al
+print:
+ mov al,ds:[bx]
+ mov ah,0eh
+ int 10h
+ inc bx
+ loop print
+
+done:
+ mov ah,4ch
+ int 21h
+end main
+```
+
+# 問題29：簡易行エディタ
+
+次の動作：
+1文字ずつ入力
+↓
+画面に表示
+↓
+BS押したら1文字削除
+↓
+Enterで終了
+条件
+BIOS推奨
+カーソル制御必須
