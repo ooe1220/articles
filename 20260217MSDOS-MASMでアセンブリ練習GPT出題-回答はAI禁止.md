@@ -583,3 +583,183 @@ done:
  int 21h
 end main
 ```
+
+# 問題18：レジスタ保存テスト
+
+以下を満たせ：
+AX = 1111h
+BX = 2222h
+CX = 3333h
+その後
+スタックに全部保存
+↓
+レジスタを全部ゼロにする
+↓
+スタックから復元
+条件
+PUSH / POP 使用
+復元後の値が完全一致すること
+![efca9c53248cf8](https://github.com/user-attachments/assets/34c3f428-b1e7-4512-a38c-4d5bbca63f4d)
+
+```MONDAI18.ASM
+.model small
+.stack 100h
+.data
+.code
+main:
+ mov ax,1111h
+ mov bx,2222h
+ mov cx,3333h
+ push ax
+ push bx
+ push cx
+ mov ax,0000h
+ mov bx,0000h
+ mov cx,0000h
+ pop cx
+ pop bx
+ pop ax 
+
+ xor ax,ax ; debug mondai18.exe kokode tomeru.
+ mov ah,4ch
+ int 21h
+end main
+```
+
+# 問題19：簡易関数呼び出し
+
+次の構造を作れ：
+main
+ └ displayA  (Aを表示する関数)
+条件
+CALL / RET 使用
+displayA は main を破壊してはいけない
+![59b6ae09d23c68](https://github.com/user-attachments/assets/a67a2cee-125c-425b-8ae9-03d3fb781971)
+
+```MONDAI19.ASM
+.model small
+.stack 100h
+.data
+.code
+main:
+ call displayA
+
+ mov ah,4ch
+ int 21h
+
+displayA:
+ push es
+ ;mov ah,0eh
+ ;mov al,'A'
+ ;int 10h
+ mov ax,0b800h
+ mov es,ax
+ xor di,di
+ mov byte ptr es:[di],'A'
+ inc di
+ mov byte ptr es:[di],07h
+ pop es
+ ret
+
+end main
+```
+# 問題20：VRAM直接文字表示
+
+次の文字を表示：
+Z
+条件
+BIOS禁止
+DOS表示禁止
+VRAM に直接書き込む
+テキストモード前提
+![5d853969103ae8](https://github.com/user-attachments/assets/0e866490-c889-45f5-afeb-1402f2ae83cf)
+```MONDAI20.ASM
+.model small
+.stack 100h
+.data
+.code
+main:
+ push es
+ mov ax,0b800h
+ mov es,ax
+ mov di,3780 ; (80*23+50)*2 migini yosenaito commando wo uwagaki suru
+ mov word ptr es:[di],075ah
+
+ mov ah,4ch
+ int 21h
+
+end main
+```
+
+# 問題21：画面中央に表示
+HELLOを画面中央付近に VRAM 直接書き込みで表示。
+条件
+文字属性も設定する
+BIOS禁止
+DOS禁止
+![e7a34bfae0b88](https://github.com/user-attachments/assets/9d7dd221-3d95-4996-bdd1-ad09d161747d)
+![31b69af556d068](https://github.com/user-attachments/assets/372e405c-db66-42ba-b76b-33283167ca16)
+
+```MONDAI21.ASM
+.model small
+.stack 100h
+.data
+ str db 'HELLO',0
+.code
+main:
+ ; str=DS:SI
+ mov ax,@data
+ mov ds,ax
+ lea si,str
+ ; vram=ES:DI
+ mov ax,0b800h
+ mov es,ax
+ mov di,2000  ; tyuuou 80*25*2/2=2000
+ 
+print:
+ mov al,ds:[si]
+ cmp al,0 ; IF STR==0 GOTO DONE
+ je done
+ mov es:[di],al
+ inc di
+ mov byte ptr es:[di],07h
+ inc di
+ inc si
+ jmp print
+done:
+ mov ah,4ch
+ int 21h
+end main
+```
+
+# 問題22：配列合計
+.data に次の配列を作る：
+1,2,3,4,5,6,7,8,9,10
+要求
+合計を AX に入れる
+条件
+配列長を即値で使ってよい
+ループ必須
+![14b2a815c742e8](https://github.com/user-attachments/assets/865a2c50-68f6-44b6-a1ce-9d8319c51397)
+```MONDAI22.ASM
+.model small
+.stack 100h
+.data 
+ array db 1,2,3,4,5,6,7,8,9,10
+ arrlen equ $-array
+.code
+main:
+ mov ax,@data
+ mov ds,ax
+ mov cx,arrlen
+ mov ax,0
+ lea si,array
+count:
+ add al,byte ptr ds:[si]
+ inc si
+ loop count
+
+ mov ah,4ch ; kokode tomeru
+ int 21h
+end main
+```
