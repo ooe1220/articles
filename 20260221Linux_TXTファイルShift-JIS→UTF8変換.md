@@ -13,7 +13,6 @@ test@test-fujitsu:~$
 
 # 変換後
 
-![Uploading 截图 2026-02-21 21-47-06.png…]()
 
 
 
