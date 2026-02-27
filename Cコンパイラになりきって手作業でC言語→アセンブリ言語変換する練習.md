@@ -383,3 +383,20 @@ main:
 	.ident	"GCC: (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0"
 	.section	.note.GNU-stack,"",@progbits
 ```
+
+# 問題3：ポインタ読み書き
+Cコード
+```c
+void store(int *p, int v)
+{
+    *p = v;
+}
+
+int main()
+{
+    int x;
+    x = 0;
+    store(&x, 5);
+    return x;
+}
+```
