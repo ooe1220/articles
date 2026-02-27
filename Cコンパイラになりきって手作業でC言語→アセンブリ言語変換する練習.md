@@ -36,7 +36,7 @@ testc.c
 
 # 問題1：足し算（最初の基本）
 Cコード
-```
+```c
 int add(int a, int b)
 {
     int c = a + b;
@@ -80,8 +80,8 @@ add:
     mov esp,ebp
     pop ebp
     ret
-
-_start:
+    
+main:
     push ebp
     mov ebp,esp
     sub esp,4
@@ -96,7 +96,11 @@ _start:
     
     mov esp,ebp
     pop ebp
-    
+    ret
+
+_start:
+
+    call main
     int 3 ; //ここで止め、GDBからEAXの値を確認
     
     ; exit(0)
@@ -222,7 +226,7 @@ main:
 
 # 問題2：条件分岐
 Cコード
-```
+```c
 int max(int a, int b)
 {
     if (a > b)
@@ -243,4 +247,133 @@ cmp
 条件ジャンプ（jg / jle など）
 mainは問題1と同じ形式
 
+## 手作業
 
+```
+BITS 32
+
+section .text
+global _start
+
+max:
+    push ebp
+    mov ebp,esp
+    sub esp,16
+    
+    mov ebx,dword [ebp+8]  ; b
+    mov eax,dword [ebp+12] ; a
+    cmp eax,ebx
+    jg la;  a>b
+    mov eax,dword [ebp+8] ; return b;
+    jmp end
+la:
+    mov eax,dword [ebp+12] ; return a;
+end:
+    
+    mov esp,ebp
+    pop ebp
+    ret
+    
+main:
+    push ebp
+    mov ebp,esp
+    sub esp,16
+    
+    push 4
+    push 10
+    call max
+    add esp,8
+    
+    mov dword [ebp-4],eax
+    mov eax, dword [ebp-4] 
+    
+    mov esp,ebp
+    pop ebp
+    ret
+
+
+_start:
+
+    call main
+    int 3; //ここで止め、GDBからEAXの値を確認
+
+    ; exit(0)
+    mov eax, 1      ; sys_exit
+    mov ebx, 0
+    int 0x80
+```
+```
+(gdb) info registers eax
+eax            0xa                 10
+```
+
+## コンパイラ版
+
+###　最適化無し -O0
+
+```
+	.file	"testc.c"
+	.intel_syntax noprefix
+	.text
+	.globl	max
+	.type	max, @function
+max:
+	push	ebp
+	mov	ebp, esp
+	mov	eax, DWORD PTR [ebp+8]
+	cmp	eax, DWORD PTR [ebp+12]
+	jle	.L2
+	mov	eax, DWORD PTR [ebp+8]
+	jmp	.L3
+.L2:
+	mov	eax, DWORD PTR [ebp+12]
+.L3:
+	pop	ebp
+	ret
+	.size	max, .-max
+	.globl	main
+	.type	main, @function
+main:
+	push	ebp
+	mov	ebp, esp
+	sub	esp, 16
+	push	4
+	push	10
+	call	max
+	add	esp, 8
+	mov	DWORD PTR [ebp-4], eax
+	mov	eax, DWORD PTR [ebp-4]
+	leave
+	ret
+	.size	main, .-main
+	.ident	"GCC: (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0"
+	.section	.note.GNU-stack,"",@progbits
+```
+
+###　最適化あり -O2
+
+```
+	.file	"testc.c"
+	.intel_syntax noprefix
+	.text
+	.p2align 4
+	.globl	max
+	.type	max, @function
+max:
+	mov	eax, DWORD PTR [esp+4]
+	mov	edx, DWORD PTR [esp+8]
+	cmp	eax, edx
+	cmovl	eax, edx
+	ret
+	.size	max, .-max
+	.section	.text.startup,"ax",@progbits
+	.p2align 4
+	.globl	main
+	.type	main, @function
+main:
+	mov	eax, 10
+	ret
+	.size	main, .-main
+	.ident	"GCC: (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0"
+	.section	.note.GNU-stack,"",@progbits
+```
