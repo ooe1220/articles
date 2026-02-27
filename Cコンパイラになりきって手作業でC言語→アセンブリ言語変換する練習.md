@@ -650,3 +650,7 @@ main:
 	.ident	"GCC: (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0"
 	.section	.note.GNU-stack,"",@progbits
 ```
+
+## 考察
+
+関数内でローカル変数を定義していない場合は`sub esp,XX`は不要だった。
