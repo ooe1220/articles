@@ -456,3 +456,69 @@ _start:
 (gdb) info registers eax
 eax            0x5                 5
 ```
+## コンパイラ版
+
+###　最適化無し -O0
+
+```testc.s
+	.file	"testc.c"
+	.intel_syntax noprefix
+	.text
+	.globl	store
+	.type	store, @function
+store:
+	push	ebp
+	mov	ebp, esp
+	mov	eax, DWORD PTR [ebp+8]
+	mov	edx, DWORD PTR [ebp+12]
+	mov	DWORD PTR [eax], edx
+	nop
+	pop	ebp
+	ret
+	.size	store, .-store
+	.globl	main
+	.type	main, @function
+main:
+	push	ebp
+	mov	ebp, esp
+	sub	esp, 16
+	mov	DWORD PTR [ebp-4], 0
+	push	5
+	lea	eax, [ebp-4]
+	push	eax
+	call	store
+	add	esp, 8
+	mov	eax, DWORD PTR [ebp-4]
+	leave
+	ret
+	.size	main, .-main
+	.ident	"GCC: (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0"
+	.section	.note.GNU-stack,"",@progbits
+```
+
+###　最適化あり -O2
+
+```testc.s
+	.file	"testc.c"
+	.intel_syntax noprefix
+	.text
+	.p2align 4
+	.globl	store
+	.type	store, @function
+store:
+	mov	eax, DWORD PTR [esp+4]
+	mov	edx, DWORD PTR [esp+8]
+	mov	DWORD PTR [eax], edx
+	ret
+	.size	store, .-store
+	.section	.text.startup,"ax",@progbits
+	.p2align 4
+	.globl	main
+	.type	main, @function
+main:
+	mov	eax, 5
+	ret
+	.size	main, .-main
+	.ident	"GCC: (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0"
+	.section	.note.GNU-stack,"",@progbits
+```
