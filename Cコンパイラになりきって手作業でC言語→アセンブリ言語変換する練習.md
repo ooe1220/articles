@@ -147,7 +147,7 @@ eax            0x5                 5
 ## コンパイラ版
 
 ###　最適化無し -O0
-```
+```testc.s
 	.file	"testc.c"
 	.intel_syntax noprefix
 	.text
@@ -185,7 +185,7 @@ main:
 ```
 
 ###　最適化あり -O2
-```
+```testc.s
 	.file	"testc.c"
 	.intel_syntax noprefix
 	.text
@@ -249,7 +249,7 @@ mainは問題1と同じ形式
 
 ## 手作業
 
-```
+```test.asm
 BITS 32
 
 section .text
@@ -311,7 +311,7 @@ eax            0xa                 10
 
 ###　最適化無し -O0
 
-```
+```testc.s
 	.file	"testc.c"
 	.intel_syntax noprefix
 	.text
@@ -352,7 +352,7 @@ main:
 
 ###　最適化あり -O2
 
-```
+```testc.s
 	.file	"testc.c"
 	.intel_syntax noprefix
 	.text
