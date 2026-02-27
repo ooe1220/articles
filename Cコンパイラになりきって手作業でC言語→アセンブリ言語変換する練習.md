@@ -415,7 +415,7 @@ store:
     mov ebp,esp
     sub esp,16
     
-    mov eax,dword [ebp+8]  ; i t *p
+    mov eax,dword [ebp+8]  ; int t *p
     mov ebx,dword [ebp+12] ; int v
     mov dword [eax],ebx ; *p=v
     
