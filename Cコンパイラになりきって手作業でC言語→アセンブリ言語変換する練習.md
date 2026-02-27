@@ -538,3 +538,115 @@ int main()
     return load(&x);
 }
 ```
+
+## 手作業
+
+```test.asm
+BITS 32
+
+section .text
+global _start
+
+load:
+    push ebp
+    mov ebp,esp
+    sub esp,16
+    
+    mov eax,dword [ebp+8]
+    mov eax,dword [eax]
+    
+    mov esp,ebp
+    pop ebp
+    ret
+    
+main:
+    push ebp
+    mov ebp,esp
+    sub esp,16
+
+    mov dword [ebp-4],7
+    lea eax,dword [ebp-4] 
+    push eax
+    call load
+    add esp,4
+    
+    mov esp,ebp
+    pop ebp
+    ret
+
+_start:
+
+    call main
+    int 3 ; //ここで止め、GDBからEAXの値を確認
+    
+    ; exit(0)
+    mov eax, 1      ; sys_exit
+    mov ebx, 0 
+    int 0x80
+```
+```
+(gdb) info registers eax
+eax            0x7                 7
+```
+
+## コンパイラ版
+
+###　最適化無し -O0
+```testc.s
+	.file	"testc.c"
+	.intel_syntax noprefix
+	.text
+	.globl	load
+	.type	load, @function
+load:
+	push	ebp
+	mov	ebp, esp
+	mov	eax, DWORD PTR [ebp+8]
+	mov	eax, DWORD PTR [eax]
+	pop	ebp
+	ret
+	.size	load, .-load
+	.globl	main
+	.type	main, @function
+main:
+	push	ebp
+	mov	ebp, esp
+	sub	esp, 16
+	mov	DWORD PTR [ebp-4], 7
+	lea	eax, [ebp-4]
+	push	eax
+	call	load
+	add	esp, 4
+	leave
+	ret
+	.size	main, .-main
+	.ident	"GCC: (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0"
+	.section	.note.GNU-stack,"",@progbits
+```
+
+
+###　最適化あり -O2
+
+```testc.s
+	.file	"testc.c"
+	.intel_syntax noprefix
+	.text
+	.p2align 4
+	.globl	load
+	.type	load, @function
+load:
+	mov	eax, DWORD PTR [esp+4]
+	mov	eax, DWORD PTR [eax]
+	ret
+	.size	load, .-load
+	.section	.text.startup,"ax",@progbits
+	.p2align 4
+	.globl	main
+	.type	main, @function
+main:
+	mov	eax, 7
+	ret
+	.size	main, .-main
+	.ident	"GCC: (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0"
+	.section	.note.GNU-stack,"",@progbits
+```
