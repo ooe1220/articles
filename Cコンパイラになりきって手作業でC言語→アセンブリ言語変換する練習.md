@@ -13,6 +13,12 @@ run
 info registers eax
 ```
 
+本物のコンパイラが生成したアセンブリと比較する
+```
+gcc -m32 -S -O0 -masm=intel testc.c
+gcc -m32 -S -O2 -masm=intel testc.c
+```
+
 # 問題1：足し算（最初の基本）
 Cコード
 ```
