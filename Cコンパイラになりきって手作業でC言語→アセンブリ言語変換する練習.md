@@ -1,7 +1,9 @@
 # 目的
 
 C言語で書いたプログラムをアセンブリ言語に変換してどのようにCPU上で実行されるかを確認する機会が多々あります。
+
 コンパイラの変換規則を理解する為に、自分でもコンパイラになりきって、手作業でC言語→アセンブリへ変換する練習をします。
+
 練習問題はGPTで自動生成します。
 
 アセンブラ及びデバッグの命令
@@ -15,8 +17,21 @@ info registers eax
 
 本物のコンパイラが生成したアセンブリと比較する
 ```
-gcc -m32 -S -O0 -masm=intel testc.c
-gcc -m32 -S -O2 -masm=intel testc.c
+gcc -m32 -S -O0 -masm=intel \
+-fno-asynchronous-unwind-tables \
+-fno-unwind-tables \
+-fno-stack-protector \
+-fno-pic \
+-fno-pie \
+testc.c
+
+gcc -m32 -S -O2 -masm=intel \
+-fno-asynchronous-unwind-tables \
+-fno-unwind-tables \
+-fno-stack-protector \
+-fno-pic \
+-fno-pie \
+testc.c
 ```
 
 # 問題1：足し算（最初の基本）
@@ -43,7 +58,8 @@ main
 ローカル変数 r
 呼び出しは cdec
 
-## そのまま変換
+## 手作業
+### そのまま変換
 
 ```test.asm
 BITS 32
@@ -94,7 +110,7 @@ _start:
 eax            0x5                 5
 ```
 
-## C言語を意識せずに書く
+### C言語を意識せずに書く
 
 ```test.asm
 BITS 32
@@ -121,4 +137,69 @@ _start:
 ```
 ```
 eax            0x5                 5
+```
+
+## コンパイラ版
+
+###　最適化無し -O0
+```
+	.file	"testc.c"
+	.intel_syntax noprefix
+	.text
+	.globl	add
+	.type	add, @function
+add:
+	push	ebp
+	mov	ebp, esp
+	sub	esp, 16
+	mov	edx, DWORD PTR [ebp+8]
+	mov	eax, DWORD PTR [ebp+12]
+	add	eax, edx
+	mov	DWORD PTR [ebp-4], eax
+	mov	eax, DWORD PTR [ebp-4]
+	leave
+	ret
+	.size	add, .-add
+	.globl	main
+	.type	main, @function
+main:
+	push	ebp
+	mov	ebp, esp
+	sub	esp, 16
+	push	3
+	push	2
+	call	add
+	add	esp, 8
+	mov	DWORD PTR [ebp-4], eax
+	mov	eax, DWORD PTR [ebp-4]
+	leave
+	ret
+	.size	main, .-main
+	.ident	"GCC: (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0"
+	.section	.note.GNU-stack,"",@progbits
+```
+
+###　最適化あり -O2
+```
+	.file	"testc.c"
+	.intel_syntax noprefix
+	.text
+	.p2align 4
+	.globl	add
+	.type	add, @function
+add:
+	mov	eax, DWORD PTR [esp+8]
+	add	eax, DWORD PTR [esp+4]
+	ret
+	.size	add, .-add
+	.section	.text.startup,"ax",@progbits
+	.p2align 4
+	.globl	main
+	.type	main, @function
+main:
+	mov	eax, 5
+	ret
+	.size	main, .-main
+	.ident	"GCC: (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0"
+	.section	.note.GNU-stack,"",@progbits
 ```
