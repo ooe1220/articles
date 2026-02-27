@@ -136,6 +136,7 @@ _start:
     int 0x80
 ```
 ```
+(gdb) info registers eax
 eax            0x5                 5
 ```
 
@@ -203,3 +204,43 @@ main:
 	.ident	"GCC: (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0"
 	.section	.note.GNU-stack,"",@progbits
 ```
+## 考察
+
+`int c = a + b;`の部分に関して筆者は
+```
+    mov eax,dword [ebp+8]
+    add eax,dword [ebp+12]
+    mov dword [ebp-4],eax
+```
+のようになると予想したが、コンパイラは各変数をレジスタに入れてから、レジスタ同士を加算するコードを生成した。
+```
+	mov	edx, DWORD PTR [ebp+8]
+	mov	eax, DWORD PTR [ebp+12]
+	add	eax, edx
+```
+
+
+# 問題2：条件分岐
+Cコード
+```
+int max(int a, int b)
+{
+    if (a > b)
+        return a;
+    else
+        return b;
+}
+
+int main()
+{
+    int r;
+    r = max(10, 4);
+    return r;
+}
+```
+条件
+cmp
+条件ジャンプ（jg / jle など）
+mainは問題1と同じ形式
+
+
