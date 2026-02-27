@@ -522,3 +522,19 @@ main:
 	.ident	"GCC: (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0"
 	.section	.note.GNU-stack,"",@progbits
 ```
+
+# 問題4：ポインタ読み
+
+```
+int load(int *p)
+{
+    return *p;
+}
+
+int main()
+{
+    int x;
+    x = 7;
+    return load(&x);
+}
+```
