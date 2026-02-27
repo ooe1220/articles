@@ -400,3 +400,59 @@ int main()
     return x;
 }
 ```
+
+
+## 手作業
+
+```test.asm
+BITS 32
+
+section .text
+global _start
+
+store:
+    push ebp
+    mov ebp,esp
+    sub esp,16
+    
+    mov eax,dword [ebp+8]  ; i t *p
+    mov ebx,dword [ebp+12] ; int v
+    mov dword [eax],ebx ; *p=v
+    
+    mov esp,ebp
+    pop ebp
+    ret
+    
+main:
+    push ebp
+    mov ebp,esp
+    sub esp,16
+
+    mov dword [ebp-4],0
+    lea eax, dword [ebp-4]
+    
+    push 5
+    push eax
+    call store
+    add esp,8
+    mov eax,dword [ebp-4]
+    
+    mov esp,ebp
+    pop ebp
+    ret
+
+_start:
+
+    call main
+    int 3 ; //ここで止め、GDBからEAXの値を確認
+    
+    ; exit(0)
+    mov eax, 1      ; sys_exit
+    mov ebx, 0 
+    int 0x80
+```
+
+```
+(gdb) info registers eax
+eax            0x5                 5
+```
