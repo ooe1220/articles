@@ -1,0 +1,207 @@
+# 目的
+
+C言語からコンパイルした形式のアセンブリを見てC言語を復元する訓練をします。
+本当はC言語からアセンブリを生成して、それを見ながらC言語へ戻したいのですが、
+一回でも正解を見てしまうと訓練にならないので、
+GPTでアセンブリを生成して自分でC言語に復元した後に、GCCからアセンブリへ変換して正しいかを判断します。
+漢文で言う複文です。
+
+引数位置：
+[ebp+8] : 第1引数
+[ebp+12] : 第2引数
+戻り値：EAX
+
+```
+gcc -m32 -S -O0 -masm=intel \
+-fno-asynchronous-unwind-tables \
+-fno-unwind-tables \
+-fno-stack-protector \
+-fno-pic \
+-fno-pie \
+test.c
+```
+
+# 問題1
+
+```asm
+func:
+    push ebp
+    mov  ebp, esp
+    sub  esp, 12
+
+    mov  eax, [ebp+8]
+    mov  [ebp-4], eax
+
+    mov  eax, [ebp+12]
+    mov  [ebp-8], eax
+
+    mov  eax, [ebp-4]
+    add  eax, [ebp-8]
+    mov  [ebp-12], eax
+
+    mov  eax, [ebp-12]
+    add  eax, 5
+
+    mov  esp, ebp
+    pop  ebp
+    ret
+```
+
+想定：
+```c
+int func(int x, int y);
+```
+
+## 回答
+
+```test.c
+int func(int x,int y){
+    int val1=x;
+    int val2=y;
+    int val3=val1+val2;
+    return val3+5;
+}
+```
+
+
+## コンパイラでアセンブリに変換して確かめる
+
+```test.s
+func:
+	push	ebp
+	mov	ebp, esp
+	sub	esp, 16
+	mov	eax, DWORD PTR [ebp+8]
+	mov	DWORD PTR [ebp-4], eax
+	mov	eax, DWORD PTR [ebp+12]
+	mov	DWORD PTR [ebp-8], eax
+	mov	edx, DWORD PTR [ebp-4]
+	mov	eax, DWORD PTR [ebp-8]
+	add	eax, edx
+	mov	DWORD PTR [ebp-12], eax
+	mov	eax, DWORD PTR [ebp-12]
+	add	eax, 5
+	leave
+	ret
+```
+
+# 問題2
+
+```asm
+func:
+    push ebp
+    mov  ebp, esp
+    sub  esp, 8
+
+    mov  eax, [ebp+8]
+    mov  [ebp-4], eax
+
+    mov  eax, [ebp-4]
+    mov  eax, [eax]
+    mov  [ebp-8], eax
+
+    mov  eax, [ebp-8]
+    add  eax, 10
+
+    mov  esp, ebp
+    pop  ebp
+    ret
+```
+
+想定
+
+```c
+int func(int *p);
+```
+課題
+[ebp+8] は何の値か
+mov eax, [eax] の意味は何か（ここが核心）
+Cに復元
+この関数が「何をしているか」を一行で説明
+
+
+## 回答
+
+```c
+int func(int *p){
+    int *val1=p;
+    int val2=*val1;
+    return val2+10;
+}
+```
+
+## コンパイラでアセンブリに変換して確かめる
+```test.s
+func:
+	push	ebp
+	mov	ebp, esp
+	sub	esp, 16
+	mov	eax, DWORD PTR [ebp+8]
+	mov	DWORD PTR [ebp-4], eax
+	mov	eax, DWORD PTR [ebp-4]
+	mov	eax, DWORD PTR [eax]
+	mov	DWORD PTR [ebp-8], eax
+	mov	eax, DWORD PTR [ebp-8]
+	add	eax, 10
+	leave
+	ret
+```
+
+# 問題3
+
+```c
+func:
+    push ebp
+    mov  ebp, esp
+    sub  esp, 4
+
+    mov  eax, [ebp+8]
+    mov  [ebp-4], eax
+
+    mov  eax, [ebp-4]
+    mov  edx, [eax]
+    add  edx, 1
+    mov  eax, [ebp-4]
+    mov  [eax], edx
+
+    mov  eax, 0
+
+    mov  esp, ebp
+    pop  ebp
+    ret
+```
+
+想定：
+```
+int func(int *p);
+```
+
+## 回答
+```
+int func(int *p){
+    int *val=p;
+    *val=*val+1;
+    return 0;
+}
+```
+
+## コンパイラでアセンブリに変換して確かめる
+
+```
+func:
+	push	ebp
+	mov	ebp, esp
+	sub	esp, 16
+	mov	eax, DWORD PTR [ebp+8]
+	mov	DWORD PTR [ebp-4], eax
+	mov	eax, DWORD PTR [ebp-4]
+	mov	eax, DWORD PTR [eax]
+	lea	edx, [eax+1]
+	mov	eax, DWORD PTR [ebp-4]
+	mov	DWORD PTR [eax], edx
+	mov	eax, 0
+	leave
+	ret
+```
+
+
