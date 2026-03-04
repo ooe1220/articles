@@ -1,12 +1,14 @@
 
 セグメントレジスタに設定する値
+```
 0 0x00 
 1 0x08 1*8
 2 0x10 2*8
 3 0x18 3*8
 4 0x20 4*8
-
 ```
+
+```kernel.c
 typedef unsigned int uint32_t;
 typedef unsigned short uint16_t;
 typedef unsigned char uint8_t;
