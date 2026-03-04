@@ -57,9 +57,25 @@ void gdt_set_entry(int index, uint32_t base, uint32_t limit, uint8_t access, uin
 void gdt_init() {
 
     gdt_set_entry(0, 0, 0, 0, 0);
+
+    // カーネル コード
+    // 0x9A=1001 0101
+    // 1001 : 1(メモリ上に存在) 00(ring0) 1(コード/データ)
+    // 0101 : 0(コード) 0(?) 1(可読) 0(CPU参照で自動1)
     gdt_set_entry(1, 0, 0xFFFFF, 0x9A, 0xC0);
+
+    // カーネル　データ
+    // 0x92=1001 0010
+    // 1001 : 上参照
+    // 
     gdt_set_entry(2, 0, 0xFFFFF, 0x92, 0xC0);
+
+    // ユーザ　コード
+    // 0xFA=1111 1010
     gdt_set_entry(3, 0, 0xFFFFF, 0xFA, 0xC0);
+
+    // ユーザ　データ
+    // 0xF2=1111 0010
     gdt_set_entry(4, 0, 0xFFFFF, 0xF2, 0xC0);
     
     gdtp.limit = sizeof(gdt) - 1;
