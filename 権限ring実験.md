@@ -40,7 +40,7 @@ int kernel_main() {
     uint16_t cs_val;
     asm volatile("mov %%cs, %0" : "=r"(cs_val));
     
-    return 0;
+    while(1){}
 }
 
 void gdt_set_entry(int index, uint32_t base, uint32_t limit, uint8_t access, uint8_t flags) {
