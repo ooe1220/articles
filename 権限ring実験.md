@@ -88,6 +88,7 @@ void gdt_init() {
 }
 
 // DS=0x08(GDT1番目　カーネルコード) CS=0x10(GDT2番目　カーネルデータ)
+// セグメントレジスタにセレクタを登録する
 void load_gdt() {
     asm volatile(
         "lgdt (%0)\n\t"
