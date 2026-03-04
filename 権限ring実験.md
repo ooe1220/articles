@@ -5,19 +5,23 @@ typedef unsigned int uint32_t;
 typedef unsigned short uint16_t;
 typedef unsigned char uint8_t;
 
-
+// ここに登録するもの
+// Baseアドレス32bit (セグメントは殆ど使わないので基本0を設定)
+// Limit 20bit (0xFFFFF)
+// 制限
+// 設定
 struct gdt_entry {
-    uint16_t limit_low;
-    uint16_t base_low;
-    uint8_t  base_middle;
-    uint8_t  access;
-    uint8_t  limit_high_flags;
-    uint8_t  base_high;
+    uint16_t limit_low;        // 
+    uint16_t base_low;         // 
+    uint8_t  base_middle;      // 
+    uint8_t  access;           // 
+    uint8_t  limit_high_flags; // 
+    uint8_t  base_high;        // 
 } __attribute__((packed));
 
 struct gdt_ptr {
-    uint16_t limit;
-    uint32_t base;
+    uint16_t limit; // GDT全体の大きさ-1
+    uint32_t base;  // GDTの先頭アドレス
 } __attribute__((packed));
 
 
