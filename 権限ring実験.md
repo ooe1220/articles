@@ -31,6 +31,8 @@ struct gdt_ptr gdtp;
 void gdt_set_entry(int index, uint32_t base, uint32_t limit, uint8_t access, uint8_t flags);
 void gdt_init();
 void load_gdt();
+void enter_user_mode();
+void user_code();
 
 void putc(char c) {
     static int pos = 0;
@@ -46,7 +48,9 @@ void puts(const char* s) {
 int kernel_main() {
     gdt_init();
     load_gdt();
-    puts("Hello");
+    puts("Hello ");
+    
+    enter_user_mode();
     
     asm volatile("hlt");
 }
@@ -115,6 +119,39 @@ void load_gdt() {
         : "r"(&gdtp)
         : "ax"
     );
+}
+
+// ring0 -> ring3
+void enter_user_mode() {
+
+    asm volatile(
+        "cli\n"
+
+        "mov $0x23, %%ax\n"    // user data selector
+        "mov %%ax, %%ds\n"
+        "mov %%ax, %%es\n"
+        "mov %%ax, %%fs\n"
+        "mov %%ax, %%gs\n"
+
+        "pushl $0x23\n"        // SS (user data)
+        "pushl $0x90000\n"     // ESP
+
+        "pushf\n"              // EFLAGS
+
+        "pushl $0x1B\n"        // CS (user code)
+        "pushl $user_code\n"   // EIP
+
+        "iret\n"
+        :
+        :
+        : "ax"
+    );
+}
+
+void user_code() {
+    puts("USER MODE");
+    while (1);
+}
 }
 ```
 
