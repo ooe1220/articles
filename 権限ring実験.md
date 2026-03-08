@@ -101,12 +101,12 @@ void load_gdt() {
     asm volatile(
         "lgdt (%0)\n\t"
 
-        "ljmp $0x08, $flush\n\t"
+        "ljmp $0x08, $flush\n\t" // CS=0x08
 
         "flush:\n\t"
         "mov $0x10, %%ax\n\t"
-        "mov %%ax, %%ds\n\t"
-        "mov %%ax, %%es\n\t"
+        "mov %%ax, %%ds\n\t"     // DS=0x10
+        "mov %%ax, %%es\n\t"     // セグメント分けない場合はDSに合わす
         "mov %%ax, %%fs\n\t"
         "mov %%ax, %%gs\n\t"
         "mov %%ax, %%ss\n\t"
