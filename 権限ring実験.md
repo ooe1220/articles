@@ -32,15 +32,23 @@ void gdt_set_entry(int index, uint32_t base, uint32_t limit, uint8_t access, uin
 void gdt_init();
 void load_gdt();
 
+void putc(char c) {
+    static int pos = 0;
+    volatile unsigned short* vram = (unsigned short*)0xB8000;
+    vram[pos++] = 0x0F00 | c; //属性 背景色 = 0x0 = 黒 文字色 = 0xF = 白
+}
+
+void puts(const char* s) {
+    while (*s) putc(*s++);
+}
+
+
 int kernel_main() {
-    
     gdt_init();
     load_gdt();
-
-    uint16_t cs_val;
-    asm volatile("mov %%cs, %0" : "=r"(cs_val));
+    puts("Hello");
     
-    while(1){}
+    asm volatile("hlt");
 }
 
 void gdt_set_entry(int index, uint32_t base, uint32_t limit, uint8_t access, uint8_t flags) {
@@ -60,7 +68,7 @@ void gdt_init() {
 
     // カーネル コード
     // 0x9A=1001 1010
-    // 1001 : 1(メモリ上に存在) 00(ring0) 1(コード/データ)
+    // 1001 : 1(有効) 00(ring0) 1(コード/データ)
     // 0101 : 1(コード) 0(?) 1(読み込み可能) 0(CPU参照で自動1)
     gdt_set_entry(1, 0, 0xFFFFF, 0x9A, 0xC0);
 
@@ -72,7 +80,7 @@ void gdt_init() {
 
     // ユーザ　コード
     // 0xFA=1111 1010
-    // 1111 : 1(メモリ上に存在) 11(ring3) 1(コード/データ)
+    // 1111 : 1(有効) 11(ring3) 1(コード/データ)
     // 1010 : 1(コード) 0(?)  1(読み込み可能) 0(CPU参照で自動1)
     gdt_set_entry(3, 0, 0xFFFFF, 0xFA, 0xC0);
 
@@ -87,21 +95,25 @@ void gdt_init() {
     
 }
 
-// DS=0x08(GDT1番目　カーネルコード) CS=0x10(GDT2番目　カーネルデータ)
-// セグメントレジスタにセレクタを登録する
+// CS=0x08(GDT1番目　カーネルコード) 
+// DS=0x10(GDT2番目　カーネルデータ)
 void load_gdt() {
     asm volatile(
         "lgdt (%0)\n\t"
+
+        "ljmp $0x08, $flush\n\t"
+
+        "flush:\n\t"
         "mov $0x10, %%ax\n\t"
         "mov %%ax, %%ds\n\t"
         "mov %%ax, %%es\n\t"
         "mov %%ax, %%fs\n\t"
         "mov %%ax, %%gs\n\t"
         "mov %%ax, %%ss\n\t"
-        "ljmp $0x08, $flush\n\t"
-        "flush:\n\t"
+
         :
         : "r"(&gdtp)
+        : "ax"
     );
 }
 ```
