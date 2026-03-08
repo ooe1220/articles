@@ -152,7 +152,14 @@ void user_code() {
     puts("USER MODE");
     while (1);
 }
-}
+```
+
+flags=0xC0の意味
+```
+0xC0=1100 0000
+7 6 5 4 | 3 2 1 0
+Flags   | Limit(上位4bit)
+1(limit=4kb) 1(32bitセグメント) 0 (64bitでない) 0(未使用)
 ```
 
 セレクタの構造
