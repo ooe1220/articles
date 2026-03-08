@@ -285,10 +285,14 @@ cat boot.bin kernel.bin > disk.img
 ```bash
 qemu-system-i386 -hda disk.img
 ```
+<img width="772" height="514" alt="图片" src="https://github.com/user-attachments/assets/71f65248-0312-4c94-9710-d5bc9793bfa8" />
+
 
 ## 実機上で実行
 
 ```bash
 sudo dd if=disk.img of=/dev/sdb
 ```
+![e1de739ad77e88](https://github.com/user-attachments/assets/d6d310fe-f581-442f-bc3b-114f0c7c82ee)
+![c40e60cebc9fa8](https://github.com/user-attachments/assets/3b3b480e-95f0-4ac0-931e-d75ba2d21d73)
 
