@@ -18,7 +18,8 @@ void kernel_main()
         for(int x=0;x<320;x++)
             vram[y*320+x] = 2;
     
-    rect(100,60,120,80,7);
+    rect(50,40,200,120,15); // window 白
+    rect(50,40,200,10,9);   // title bar 青
     
     asm volatile("cli"); 
     asm volatile("hlt"); 
