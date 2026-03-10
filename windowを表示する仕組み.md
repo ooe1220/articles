@@ -20,6 +20,7 @@ void kernel_main()
     
     rect(50,40,200,120,15); // window 白
     rect(50,40,200,10,9);   // title bar 青
+    rect(0,180,320,20,7);   // タスクバー 灰色
     
     asm volatile("cli"); 
     asm volatile("hlt"); 
