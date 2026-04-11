@@ -124,8 +124,11 @@ int main() {
 
 # ピクセルの4バイト境界
 
+4×2の画像
 <img width="262" height="140" alt="image" src="https://github.com/user-attachments/assets/7fa7c37e-a921-4601-97fd-eebd17bcdc51" />
 
+5×2の画像
+<img width="339" height="140" alt="image" src="https://github.com/user-attachments/assets/2fe7d8dc-cefe-4409-a032-3d56f6cb0ca6" />
 
 
 
