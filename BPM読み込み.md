@@ -46,7 +46,7 @@ C:\Users\test\kaihatsu>
 ```
 
 <details>
-<summary>boot.asm</summary>
+<summary>header.c</summary>
 
 ```header.c
 //gcc header.c -o header.exe
