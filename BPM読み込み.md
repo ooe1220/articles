@@ -146,6 +146,7 @@ width=5 height=2 rowSize=16
 Row 0: FF FF FF FF FF FF FF FF FF FF FF FF E8 A2 00 | 00
 Row 1: 24 1C ED 4C B1 22 A4 49 A3 FF FF FF FF FF FF | 00
 ```
+※ Row 0 は画像の最下段を表す(後述)
 
 <details>
 <summary>pixel.c</summary>
