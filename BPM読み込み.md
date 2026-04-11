@@ -124,8 +124,8 @@ int main() {
 
 # ピクセルの4バイト境界
 BITMAPの仕様では、1行のバイト数を4の倍数に合わせます。<br>
-例えば幅が4の場合は4×3バイト=12となる為、そのまま12バイトになりますが、
-幅が5の場合は5×3=15バイトとなり、16バイトに合わせる為に0埋めが発生します。
+例えば幅が4の場合は`4×3バイト=12`となる為、そのまま12バイトになりますが、
+幅が5の場合は`5×3=15バイト`となり、16バイトに合わせる為に0埋めが発生します。
 
 4×2の画像<br>
 <img width="262" height="140" alt="image" src="https://github.com/user-attachments/assets/7fa7c37e-a921-4601-97fd-eebd17bcdc51" />
@@ -226,5 +226,42 @@ int main() {
 
 </details>
 
+# BTTMAPの行は下から上へ読む
 
+4×3の画像を用意し、前章のpixel.cにてピクセルの生データを確認する。<br>
+観測の為に幅を4ピクセルにして0埋めが発生しないようにしています。
+<img width="271" height="206" alt="image" src="https://github.com/user-attachments/assets/008838b2-d67c-473e-a561-364d707c3d8c" />
 
+```
+=== RAW PIXEL ROW DUMP ===
+width=4 height=3 rowSize=12
+Row 0: 00 F2 FF FF FF FF FF FF FF FF FF FF
+Row 1: FF FF FF CC 48 3F FF FF FF CC 48 3F
+Row 2: 24 1C ED FF FF FF 24 1C ED FF FF FF
+```
+
+筆者の作成した画像は、分かり易く最終行左のピクセルのみ着色し、その後は全て白(`FF FF FF`)としている。<br>
+バイナリを見てみると仕様通り最終行が一番上に保存されている。
+
+即ち以下の様な画像があった場合に
+```
+赤青紫藍
+白黄橙茶
+桃黒緑灰
+```
+バイナリ上は以下の様な配列となる。
+```
+桃黒緑灰
+白黄橙茶
+赤青紫藍
+```
+
+# 検証環境
+エディション	Windows 10 Pro
+バージョン	22H2
+OS ビルド	19045.6466
+プロセッサ	Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz   2.71 GHz
+実装 RAM	8.00 GB
+ストレージ	119 GB SSD GT480 128GB
+グラフィックス カード	Intel(R) HD Graphics 620 (128 MB)
+gcc version 15.2.0 (MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r4)
