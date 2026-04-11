@@ -123,6 +123,9 @@ int main() {
 </details>
 
 # ピクセルの4バイト境界
+BITMAPの仕様では、1行のバイト数を4の倍数に合わせます。<br>
+例えば幅が4の場合は4×3バイト=12となる為、そのまま12バイトになりますが、
+幅が5の場合は5×3=15バイトとなり、16バイトに合わせる為に0埋めが発生します。
 
 4×2の画像<br>
 <img width="262" height="140" alt="image" src="https://github.com/user-attachments/assets/7fa7c37e-a921-4601-97fd-eebd17bcdc51" />
