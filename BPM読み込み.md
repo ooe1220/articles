@@ -1,6 +1,6 @@
-# BMP24ビット形式の画像を用意する
+# BMP24ビット形式の画像を用意
 
-Windows標準のペイントを使って生成する
+Windows標準のペイントを使って生成します。
 <img width="1066" height="400" alt="image" src="https://github.com/user-attachments/assets/00237ad4-8e76-4913-9949-79ee8bd38d72" />
 <img width="940" height="531" alt="image" src="https://github.com/user-attachments/assets/1f5f2fe9-daf1-4354-96c4-c6ff02ba7f76" />
 
@@ -123,6 +123,12 @@ int main() {
 </details>
 
 # ピクセルの4バイト境界
+
+<img width="262" height="140" alt="image" src="https://github.com/user-attachments/assets/7fa7c37e-a921-4601-97fd-eebd17bcdc51" />
+
+
+
+
 
 
 
