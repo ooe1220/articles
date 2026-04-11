@@ -1,6 +1,6 @@
 # BMP24ビット形式の画像を用意する
 
-構造を理解し易くする為に4×2の大きさで作成
+Windows標準のペイントを使って生成する
 <img width="1066" height="400" alt="image" src="https://github.com/user-attachments/assets/00237ad4-8e76-4913-9949-79ee8bd38d72" />
 <img width="940" height="531" alt="image" src="https://github.com/user-attachments/assets/1f5f2fe9-daf1-4354-96c4-c6ff02ba7f76" />
 
@@ -11,6 +11,7 @@ https://qiita.com/ImagingSolAkira/items/30fd3727afa3076b8050
 
 C言語を使用し、先ほど保存した画像のヘッダ情報を読み込みます。<br>
 一応全ての要素を表示しますが、今回の主題に関係無い要素は無視します。<br>
+以下は4×2の画像ヘッダを表示した結果です。<br>
 
 `bfType        : 0x4D42` この値でないとBMPと認識されない。(後から自作予定のBMP表示プログラムでもファイルの先頭がこの値かを以て選択されたファイルがBMP形式かどうかを判定する)<br>
 
