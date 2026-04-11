@@ -124,15 +124,104 @@ int main() {
 
 # ピクセルの4バイト境界
 
-4×2の画像
+4×2の画像<br>
 <img width="262" height="140" alt="image" src="https://github.com/user-attachments/assets/7fa7c37e-a921-4601-97fd-eebd17bcdc51" />
 
-5×2の画像
+```
+=== RAW PIXEL ROW DUMP ===
+width=4 height=2 rowSize=12
+Row 0: FF FF FF FF FF FF FF FF FF 00 00 00
+Row 1: 24 1C ED E8 A2 00 FF FF FF FF FF FF
+```
+
+5×2の画像<br>
 <img width="339" height="140" alt="image" src="https://github.com/user-attachments/assets/2fe7d8dc-cefe-4409-a032-3d56f6cb0ca6" />
 
+```
+=== RAW PIXEL ROW DUMP ===
+width=5 height=2 rowSize=16
+Row 0: FF FF FF FF FF FF FF FF FF FF FF FF E8 A2 00 | 00
+Row 1: 24 1C ED 4C B1 22 A4 49 A3 FF FF FF FF FF FF | 00
+```
 
+<details>
+<summary>pixel.c</summary>
 
+```pixel.c
+// gcc pixel.c -o pixel.exe
+#include <stdio.h>
+#include <stdint.h>
 
+#pragma pack(push, 1)
+
+typedef struct {
+    uint16_t bfType;
+    uint32_t bfSize;
+    uint16_t bfReserved1;
+    uint16_t bfReserved2;
+    uint32_t bfOffBits;
+} BITMAPFILEHEADER;
+
+typedef struct {
+    uint32_t biSize;
+    int32_t  biWidth;
+    int32_t  biHeight;
+    uint16_t biPlanes;
+    uint16_t biBitCount;
+    uint32_t biCompression;
+    uint32_t biSizeImage;
+    int32_t  biXPelsPerMeter;
+    int32_t  biYPelsPerMeter;
+    uint32_t biClrUsed;
+    uint32_t biClrImportant;
+} BITMAPINFOHEADER;
+
+#pragma pack(pop)
+
+int main() {
+    FILE *fp = fopen("test.bmp", "rb");
+    if (!fp) {
+        printf("file open error\n");
+        return 1;
+    }
+
+    BITMAPFILEHEADER fh;
+    BITMAPINFOHEADER ih;
+
+    fread(&fh, sizeof(fh), 1, fp);
+    fread(&ih, sizeof(ih), 1, fp);
+
+    // ピクセル開始位置へ
+    fseek(fp, fh.bfOffBits, SEEK_SET);//SEEK_SETで「ファイル先頭」からの距離
+
+    int rowSize = ((ih.biWidth * 3 + 3) / 4) * 4;
+
+    printf("=== RAW PIXEL ROW DUMP ===\n");
+    printf("width=%d height=%d rowSize=%d\n", ih.biWidth, ih.biHeight, rowSize);
+
+    for (int y = 0; y < ih.biHeight; y++) {
+        printf("Row %d: ", y);
+
+        for (int i = 0; i < rowSize; i++) {
+
+            // 境界に印を付ける
+            if (i == ih.biWidth * 3) {
+                printf("| ");
+            }
+
+            unsigned char v = fgetc(fp);
+            printf("%02X ", v);
+        }
+
+        printf("\n");
+    }
+
+    fclose(fp);
+    return 0;
+}
+```
+
+</details>
 
 
 
