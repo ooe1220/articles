@@ -1,3 +1,11 @@
+# 初めに
+
+前回BMPの仕組みを調べました。
+[画像処理① 前準備：BMPの仕組みを理解](https://qiita.com/earthen94/items/7978f18a7e075c4b95ce)
+
+今回はWindowsAPIを用いてBMP画像を表示します。
+
+# 表示処理
 
 ```main.c
 //gcc main.c -o main.exe -lgdi32
@@ -134,3 +142,16 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrev, LPSTR lpCmd, int nShow)
     return 0;
 }
 ```
+
+<img width="1328" height="455" alt="image" src="https://github.com/user-attachments/assets/890d6faf-78a2-4ffd-a685-79401bfd2ad9" />
+<img width="1178" height="889" alt="image" src="https://github.com/user-attachments/assets/12ef01e1-67e4-493b-a404-116120c6307d" />
+
+# 検証環境
+エディション	Windows 10 Pro<br>
+バージョン	22H2<br>
+OS ビルド	19045.6466<br>
+プロセッサ	Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz   2.71 GHz<br>
+実装 RAM	8.00 GB<br>
+ストレージ	119 GB SSD GT480 128GB<br>
+グラフィックス カード	Intel(R) HD Graphics 620 (128 MB)<br>
+gcc version 15.2.0 (MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r4)<br>
