@@ -6,6 +6,41 @@
 
 # ヘッダ情報を読み込む
 
+C言語を使用し、先ほど保存した画像のヘッダ情報を読み込みます。
+一応全ての要素を表示しますが、今回の主題に関係ない要素は無視します。
+
+`bfType        : 0x4D42` この値でないとBMPと認識されない。(後から自作予定のBMP表示プログラムでもファイルの先頭がこの値かを以て選択されたファイルがBMP形式かどうかを判定する)
+
+`biWidth       : 0x00000004` 幅
+`biHeight      : 0x00000002` 高さ
+`biSizeImage   : 0x00000018` 4×2(解像度)×3(1ピクセルの大きさ)=24=0x18
+
+```bash
+C:\Users\test\kaihatsu>gcc header.c -o header.exe
+
+C:\Users\test\kaihatsu>header
+=== BITMAPFILEHEADER ===
+bfType        : 0x4D42
+bfSize        : 0x0000004E
+bfReserved1   : 0x0000
+bfReserved2   : 0x0000
+bfOffBits     : 0x00000036
+
+=== BITMAPINFOHEADER ===
+biSize        : 0x00000028
+biWidth       : 0x00000004
+biHeight      : 0x00000002
+biPlanes      : 0x0001
+biBitCount    : 0x0018
+biCompression : 0x00000000
+biSizeImage   : 0x00000018
+biXPelsPerMeter:0x00000000
+biYPelsPerMeter:0x00000000
+biClrUsed     : 0x00000000
+biClrImportant: 0x00000000
+
+C:\Users\test\kaihatsu>
+```
 ```header.c
 //gcc header.c -o header.exe
 #include <stdio.h>
@@ -77,29 +112,4 @@ int main() {
 }
 ```
 
-```bash
-C:\Users\test\kaihatsu>gcc header.c -o header.exe
 
-C:\Users\test\kaihatsu>header
-=== BITMAPFILEHEADER ===
-bfType        : 0x4D42
-bfSize        : 0x0000004E
-bfReserved1   : 0x0000
-bfReserved2   : 0x0000
-bfOffBits     : 0x00000036
-
-=== BITMAPINFOHEADER ===
-biSize        : 0x00000028
-biWidth       : 0x00000004
-biHeight      : 0x00000002
-biPlanes      : 0x0001
-biBitCount    : 0x0018
-biCompression : 0x00000000
-biSizeImage   : 0x00000018
-biXPelsPerMeter:0x00000000
-biYPelsPerMeter:0x00000000
-biClrUsed     : 0x00000000
-biClrImportant: 0x00000000
-
-C:\Users\test\kaihatsu>
-```
