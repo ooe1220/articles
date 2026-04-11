@@ -229,8 +229,8 @@ int main() {
 
 # BTTMAPの行は下から上へ読む
 
-4×3の画像を用意し、前章のpixel.cにてピクセルの生データを確認する。<br>
-観測の為に幅を4ピクセルにして0埋めが発生しないようにしています。
+4×3の画像を用意し、前章のpixel.cにてピクセルの生データを確認します。<br>
+観測の為に幅を4ピクセルにして0埋めが発生しないようにしています。<br>
 <img width="271" height="206" alt="image" src="https://github.com/user-attachments/assets/008838b2-d67c-473e-a561-364d707c3d8c" />
 
 ```
@@ -241,16 +241,16 @@ Row 1: FF FF FF CC 48 3F FF FF FF CC 48 3F
 Row 2: 24 1C ED FF FF FF 24 1C ED FF FF FF
 ```
 
-筆者の作成した画像は、分かり易く最終行左のピクセルのみ着色し、その後は全て白(`FF FF FF`)としている。<br>
-バイナリを見てみると仕様通り最終行が一番上に保存されている。
+筆者の作成した画像は、分かり易く最終行左のピクセルのみ着色し、その後は全て白(`FF FF FF`)としています<br>
+バイナリを見てみると仕様通り最終行が一番上に保存されています。
 
-即ち以下の様な画像があった場合に
+即ち以下の様な画像があった場合に<br>
 ```
 赤青紫藍
 白黄橙茶
 桃黒緑灰
 ```
-バイナリ上は以下の様な配列となる。
+バイナリ上は以下の様な配列となる。<br>
 ```
 桃黒緑灰
 白黄橙茶
@@ -258,11 +258,11 @@ Row 2: 24 1C ED FF FF FF 24 1C ED FF FF FF
 ```
 
 # 検証環境
-エディション	Windows 10 Pro
-バージョン	22H2
-OS ビルド	19045.6466
-プロセッサ	Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz   2.71 GHz
-実装 RAM	8.00 GB
-ストレージ	119 GB SSD GT480 128GB
-グラフィックス カード	Intel(R) HD Graphics 620 (128 MB)
-gcc version 15.2.0 (MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r4)
+エディション	Windows 10 Pro<br>
+バージョン	22H2<br>
+OS ビルド	19045.6466<br>
+プロセッサ	Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz   2.71 GHz<br>
+実装 RAM	8.00 GB<br>
+ストレージ	119 GB SSD GT480 128GB<br>
+グラフィックス カード	Intel(R) HD Graphics 620 (128 MB)<br>
+gcc version 15.2.0 (MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r4)<br>
