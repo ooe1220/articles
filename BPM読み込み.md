@@ -10,7 +10,7 @@
 https://qiita.com/ImagingSolAkira/items/30fd3727afa3076b8050
 
 C言語を使用し、先ほど保存した画像のヘッダ情報を読み込みます。<br>
-一応全ての要素を表示しますが、今回の主題に関係ない要素は無視します。<br>
+一応全ての要素を表示しますが、今回の主題に関係無い要素は無視します。<br>
 
 `bfType        : 0x4D42` この値でないとBMPと認識されない。(後から自作予定のBMP表示プログラムでもファイルの先頭がこの値かを以て選択されたファイルがBMP形式かどうかを判定する)<br>
 
@@ -44,6 +44,10 @@ biClrImportant: 0x00000000
 
 C:\Users\test\kaihatsu>
 ```
+
+<details>
+<summary>boot.asm</summary>
+
 ```header.c
 //gcc header.c -o header.exe
 #include <stdio.h>
@@ -114,5 +118,11 @@ int main() {
     return 0;
 }
 ```
+
+</details>
+
+# ピクセルの4バイト境界
+
+
 
 
