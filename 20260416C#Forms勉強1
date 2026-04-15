@@ -1,0 +1,81 @@
+
+```bash
+C:\Users\test>dotnet new console -o FormTest
+C:\Users\test>cd FormTest
+C:\Users\test\FormTest>dotnet run
+```
+
+```MainForm.cs
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace ButtonApp
+{
+    public class MainForm : Form
+    {
+        private Button myButton;
+        private int clickCount = 0;
+        
+        public MainForm()
+        {
+            // Window属性
+            this.Text = "Window左上の名称";
+            this.Size = new Size(400, 300);
+            this.StartPosition = FormStartPosition.CenterScreen;//起動時にWindowを表示する位置
+            
+            // ボタン
+            myButton = new Button();
+            myButton.Text = "押下";
+            myButton.Size = new Size(100, 50);
+            myButton.Location = new Point(150, 100);
+            
+            // 押下時の処理
+            myButton.Click += (sender, e) =>
+            {
+                clickCount++;
+                myButton.Text = $"{clickCount}回";
+                
+                MessageBox.Show($" {clickCount} 回押下", "回数", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            };
+            
+            // ボタンをWindowへ追加
+            this.Controls.Add(myButton);
+        }
+    }
+}
+```
+
+
+```Test.cs
+using System;
+using System.Windows.Forms;
+
+namespace ButtonApp
+{
+    class Test
+    {
+        [STAThread]
+        static void Main()
+        {
+            //Application.EnableVisualStyles(); // 有効にすると今風のボタンになる
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new MainForm());
+        }
+    }
+}
+```
+
+
+```FormTest.csproj
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+</Project>
+```
