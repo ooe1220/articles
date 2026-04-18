@@ -1,0 +1,103 @@
+# 初めに
+
+BorlandCという古いコンパイラでC言語をアセンブリ言語に変換してみると、`enter`という命令が出てきました。<br>
+今までGCCを使っていた時には一度も出てきた事が無く、今回初めて見かけたので使用方法を調べてみました。
+
+# 実証
+
+```bash
+nasm -f elf32 test.asm -o test.o
+ld -m elf_i386 test.o -o test
+objdump -d ./test -M intel
+gdb ./test
+run
+info registers ebp esp
+continue
+info registers ebp esp
+```
+
+## enter
+
+`enter 0x10`は以下と同じ動きをする。
+```asm
+    push ebp
+    mov ebp, esp
+    sub esp, 0x10
+```
+
+32ビットの`ebp`を`push`しているので`esp = 0xffffd2a0 - 4バイト = 0xffffd29c` <br>
+`esp`を`ebp`に代入するので`ebp = 0xffffd2a0`となる <br>
+`esp = 0xffffd29c - 0x10 = 0xffffd28c`
+
+```bash
+0x08049001 in _start ()
+(gdb) info registers ebp esp
+ebp            0x0                 0x0
+esp            0xffffd2a0          0xffffd2a0
+(gdb) continue
+Continuing.
+
+Program received signal SIGTRAP, Trace/breakpoint trap.
+0x08049006 in _start ()
+(gdb) info registers ebp esp
+ebp            0xffffd29c          0xffffd29c
+esp            0xffffd28c          0xffffd28c
+```
+
+```test.asm
+section .text
+global _start
+
+_start:
+
+    ; 方法1: enterを使う
+    int3               ; ここでブレークして初期状態を確認
+    enter 0x10, 0
+    
+    int3               ; enter 後のレジスタ状態を確認
+    leave
+    
+    ; 終了
+    mov eax, 1
+    mov ebx, 0
+    int 0x80
+```
+
+## 手動
+
+```test.asm
+section .text
+global _start
+
+_start:
+    
+    ; 方法2: subを使う
+    int3               ; リセット後
+    push ebp
+    mov ebp, esp
+    sub esp, 0x10
+    
+    int3               ; sub 後のレジスタ状態を確認
+    mov esp, ebp
+    pop ebp
+    
+    ; 終了
+    mov eax, 1
+    mov ebx, 0
+    int 0x80
+```
+
+```bash
+0x08049001 in _start ()
+(gdb) info registers ebp esp
+ebp            0x0                 0x0
+esp            0xffffd2a0          0xffffd2a0
+(gdb) continue
+Continuing.
+
+Program received signal SIGTRAP, Trace/breakpoint trap.
+0x08049008 in _start ()
+(gdb) info registers ebp esp
+ebp            0xffffd29c          0xffffd29c
+esp            0xffffd28c          0xffffd28c
+```
