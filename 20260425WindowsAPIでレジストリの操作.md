@@ -10,7 +10,7 @@ C:\Users\test\kaihatsu>gcc main.c -o main.exe
 C:\Users\test\kaihatsu>main
 ```
 
-
+<img width="1332" height="691" alt="image" src="https://github.com/user-attachments/assets/f2bcf5c6-f5c1-486c-ad7f-5ddf748a3e34" />
 
 ```main.c
 #include <windows.h>
@@ -44,4 +44,29 @@ int main() {
 }
 ```
 
+# レジストリの削除
 
+```bash
+C:\Users\test\kaihatsu>gcc main.c -o main.exe
+
+C:\Users\test\kaihatsu>main
+```
+
+
+
+
+```main.c
+#include <windows.h>
+#include <stdio.h>
+
+int main() {
+    LONG result;
+
+    result = RegDeleteKeyA(
+        HKEY_CURRENT_USER,
+        "Software\\TestApp1220"
+    );
+
+    return 0;
+}
+```
