@@ -74,6 +74,61 @@ int main() {
 
 # 使ってみる
 
+## 設定値として使用
+
+レジストリに登録した値を、キー指定で取得する。自作のソフトで必要な設定値を自由に設定可能。
+
+<img width="1332" height="739" alt="image" src="https://github.com/user-attachments/assets/248a1b16-f2f5-44d0-ac63-45486a1f672d" />
+
+```bash
+C:\Users\test\kaihatsu>gcc main.c -o main.exe
+
+C:\Users\test\kaihatsu>main
+Value: AAAABBBBCCCC
+
+C:\Users\test\kaihatsu>
+```
+
+```main.c
+#include <windows.h>
+#include <stdio.h>
+
+int main() {
+    HKEY hKey;
+    char buffer[256];
+    DWORD bufferSize = sizeof(buffer);
+    DWORD type;
+
+    // キーを開く
+    if (RegOpenKeyExA(
+            HKEY_CURRENT_USER,
+            "Software\\TestApp1220",
+            0,
+            KEY_READ,
+            &hKey) != ERROR_SUCCESS) {
+        printf("Failed to open key\n");
+        return 1;
+    }
+
+    // 値を読む
+    if (RegQueryValueExA(
+            hKey,
+            "TESTMSG1220",
+            NULL,
+            &type,
+            (LPBYTE)buffer,
+            &bufferSize) == ERROR_SUCCESS) {
+
+        printf("Value: %s\n", buffer);
+    } else {
+        printf("Failed to read value\n");
+    }
+
+    RegCloseKey(hKey);
+    return 0;
+}
+```
+
 ## 「プログラムと機能」に登録
 
 `Software\Microsoft\Windows\CurrentVersion\Uninstall\`に登録すると「プログラムと機能」に表示される
@@ -125,6 +180,7 @@ int main() {
     return 0;
 }
 ```
+
 
 
 
