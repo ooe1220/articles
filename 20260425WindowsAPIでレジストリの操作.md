@@ -52,6 +52,7 @@ C:\Users\test\kaihatsu>gcc main.c -o main.exe
 C:\Users\test\kaihatsu>main
 ```
 
+<img width="1332" height="691" alt="image" src="https://github.com/user-attachments/assets/6939c831-12c5-4e4f-9a03-43a2c7cba9f2" />
 
 
 
