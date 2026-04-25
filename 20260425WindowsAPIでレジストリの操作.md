@@ -71,3 +71,60 @@ int main() {
     return 0;
 }
 ```
+
+# 使ってみる
+
+## 「プログラムと機能」に登録
+
+`Software\Microsoft\Windows\CurrentVersion\Uninstall\`に登録すると「プログラムと機能」に表示される
+
+<img width="1332" height="691" alt="image" src="https://github.com/user-attachments/assets/1b021e2d-deef-4fe6-b028-db60ec1fef44" />
+<img width="1180" height="815" alt="image" src="https://github.com/user-attachments/assets/0ca4c513-3013-45ef-bc02-10b7d6c7d2b8" />
+
+```main.c
+#include <windows.h>
+#include <stdio.h>
+
+int main() {
+    HKEY hKey;
+    const char *subkey =
+        "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\TestApp1220";
+
+    if (RegCreateKeyExA(
+            HKEY_CURRENT_USER,
+            subkey,
+            0, NULL, 0,
+            KEY_WRITE,
+            NULL,
+            &hKey,
+            NULL) != ERROR_SUCCESS) {
+        printf("Failed to create key\n");
+        return 1;
+    }
+
+    const char *name = "TestApp1220";
+    const char *version = "1234.5678";
+    const char *publisher = "HISSHA";
+    const char *uninstall = "C:\\TestApp\\uninstall.exe";
+
+    RegSetValueExA(hKey, "DisplayName", 0, REG_SZ,
+        (const BYTE*)name, strlen(name)+1);
+
+    RegSetValueExA(hKey, "DisplayVersion", 0, REG_SZ,
+        (const BYTE*)version, strlen(version)+1);
+
+    RegSetValueExA(hKey, "Publisher", 0, REG_SZ,
+        (const BYTE*)publisher, strlen(publisher)+1);
+
+    RegSetValueExA(hKey, "UninstallString", 0, REG_SZ,
+        (const BYTE*)uninstall, strlen(uninstall)+1);
+
+    RegCloseKey(hKey);
+
+    printf("Registered in Uninstall list.\n");
+    return 0;
+}
+```
+
+
+
