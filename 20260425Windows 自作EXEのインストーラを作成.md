@@ -29,6 +29,7 @@ gcc test.c -o test.exe -mwindows
 gcc uninstall.c -o uninstall.exe
 windres resource.rc resource.o
 gcc install.c resource.o -o install.exe
+gcc install.c -o install.exe
 ```
 
 ```resource.rc
@@ -122,6 +123,91 @@ int main() {
 	
 	printf("Uninstalled\n");
 
+    return 0;
+}
+```
+
+</details>
+
+<details>
+<summary>install.c</summary>
+
+```install.c
+#include <windows.h>
+#include <stdio.h>
+#include <string.h>
+
+#define IDR_TEST_EXE 1001
+#define IDR_UNINSTALL_EXE 1002
+
+int ExtractResourceToFile(int resourceId, const char* outputPath) {
+    HRSRC hRes = FindResource(NULL, MAKEINTRESOURCE(resourceId), RT_RCDATA);
+    if (!hRes) return 0;
+
+    HGLOBAL hData = LoadResource(NULL, hRes);
+    if (!hData) return 0;
+
+    void* pData = LockResource(hData);
+    DWORD size = SizeofResource(NULL, hRes);
+
+    FILE* f = fopen(outputPath, "wb");
+    if (!f) return 0;
+
+    fwrite(pData, 1, size, f);
+    fclose(f);
+
+    return 1;
+}
+
+int main() {
+    const char *dir = "C:\\TestApp1220";
+	
+    const char *src = "test.exe";
+    const char *dst = "C:\\TestApp1220\\test.exe";
+	
+    const char *uninstall_src = "uninstall.exe";
+    const char *uninstall_dst = "C:\\TestApp1220\\uninstall.exe";
+
+    // フォルダ作成
+    CreateDirectoryA(dir, NULL);
+
+    // ファイル複製
+    if (!ExtractResourceToFile(IDR_TEST_EXE, dst)) {
+        printf("Extract test.exe failed\n");
+        return 1;
+    }
+
+    if (!ExtractResourceToFile(IDR_UNINSTALL_EXE, uninstall_dst)) {
+        printf("Extract uninstall.exe failed\n");
+        return 1;
+    }
+
+    // レジストリ登録（Uninstall）
+    HKEY hKey;
+    const char *subkey =
+        "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\TestApp1220";
+
+    if (RegCreateKeyExA(
+            HKEY_CURRENT_USER,
+            subkey,
+            0, NULL, 0,
+            KEY_WRITE,
+            NULL,
+            &hKey,
+            NULL) == ERROR_SUCCESS) {
+
+        const char *name = "TestApp1220";
+
+        // 一覧に表示する名称
+        RegSetValueExA(hKey, "DisplayName", 0, REG_SZ,(const BYTE*)name, strlen(name)+1);
+
+        // 削除に使用するEXEのパス
+        RegSetValueExA(hKey, "UninstallString", 0, REG_SZ,(const BYTE*)uninstall_dst, strlen(uninstall_dst)+1);
+
+        RegCloseKey(hKey);
+    }
+
+    printf("Installed\n");
     return 0;
 }
 ```
