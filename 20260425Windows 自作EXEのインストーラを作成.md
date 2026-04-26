@@ -222,7 +222,7 @@ int main() {
 3. `install.exe`により`test.exe`,`uninstall.exe`を`C:\\TestApp1220\\`下に複製する。
 4. `install.exe`により、レジストリ`Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\`下に自作ソフトの情報を登録する。ここに登録することで `プログラムと機能`上に表示される。
 5.  `プログラムと機能`からアンインストールをすると、レジストリに登録した`C:\\TestApp1220\\uninstall.exe`が実行される。
-6.  `uninstall.exe`により、登録したレジストリを全て削除する。
+6.  `uninstall.exe`により、`test.exe`及び登録したレジストリを全て削除する。
 7.  `uninstall.exe`は実行中の為、自分自身を削除することは出来ない。そこで`uninstall.exe`の削除をOS側に予約しておくと、再起動時に削除される。
 
 
