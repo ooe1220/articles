@@ -29,7 +29,6 @@ gcc test.c -o test.exe -mwindows
 gcc uninstall.c -o uninstall.exe
 windres resource.rc resource.o
 gcc install.c resource.o -o install.exe
-gcc install.c -o install.exe
 ```
 
 ```resource.rc
