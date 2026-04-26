@@ -22,9 +22,8 @@ gcc test_system.c -o test_system.exe -mwindows
 ```
 
 ## ユーザ側
-<img width="1375" height="540" alt="image" src="https://github.com/user-attachments/assets/65ac773a-8134-4cce-88c1-d91176e05b93" />
+<img width="1375" height="540" alt="image" src="https://github.com/user-attachments/assets/e46de44f-d872-4c95-bb5d-d1e11d1d2223" />
 
 ## システム側
-<img width="1375" height="540" alt="image" src="https://github.com/user-attachments/assets/f84d9cb6-7b19-444f-9296-12b73211a357" />
-
+<img width="1375" height="540" alt="image" src="https://github.com/user-attachments/assets/177008e8-7dee-4302-854c-34323003eb03" />
 
