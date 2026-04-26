@@ -225,4 +225,14 @@ int main() {
 6.  `uninstall.exe`により、`test.exe`及び登録したレジストリを全て削除する。
 7.  `uninstall.exe`は実行中の為、自分自身を削除することは出来ない。そこで`uninstall.exe`の削除をOS側に予約しておくと、再起動時に削除される。
 
+# 検証環境
+
+プロセッサ	Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz   2.71 GHz
+実装 RAM	8.00 GB
+ストレージ	119 GB SSD GT480 128GB
+グラフィックス カード	Intel(R) HD Graphics 620 (128 MB)
+
+エディション	Windows 10 Pro
+バージョン	22H2
+OS ビルド	19045.6466
 
