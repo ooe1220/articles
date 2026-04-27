@@ -38,8 +38,8 @@ sudo dd if=test.bin of=/dev/sdb bs=512 count=2 conv=notrunc
 奇数行には書き込んでおらず、偶数行のみ描画されており、縞模様が出来ている。
 <img width="692" height="514" alt="截图 2026-04-27 21-05-48" src="https://github.com/user-attachments/assets/d4699fe0-b295-4bfd-908c-a26304f45827" />
 
-![Uploading 050f4c47fe6988.jpg…]()
 
+<img width="2359" height="1769" alt="050f4c47fe6988" src="https://github.com/user-attachments/assets/7d68f885-fb90-45d5-9e0f-b59c3d416451" />
 
 
 <details>
