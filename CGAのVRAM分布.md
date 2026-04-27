@@ -112,3 +112,71 @@ times 1024-($-$$) db 0
 # 奇数
 
 
+
+<details>
+<summary>test.asm</summary>
+
+```test.asm 
+org 0x7C00
+
+start:
+    xor ax, ax
+    mov ds, ax
+    mov es, ax
+    mov ss, ax
+    mov sp, 0x7C00
+
+    ; ディスクから第2セクタを 0x7E00 に読み込む
+    mov ah, 0x02        ; INT 13h 2: 読み込み
+    mov al, 1           ; 読み込むセクタ数 = 1
+    mov ch, 0           ; シリンダ = 0
+    mov cl, 2           ; セクタ番号 = 2（1始まり）
+    mov dh, 0           ; ヘッド = 0
+    mov dl, 0x80        ; ドライブ番号
+    mov bx, 0x7E00      ; 読み込み先アドレス
+    int 0x13
+    jc disk_error       ; エラー時
+
+    ; 読み込んだコードへ跳ぶ（第2セクタ）
+    jmp 0x0000:0x7E00
+
+disk_error:
+    cli
+    hlt
+
+times 510-($-$$) db 0
+dw 0xAA55
+
+    ; CGA互換 320x200 4色
+    mov ax, 0x0004
+    int 0x10
+
+    ; VRAM = (es:di)B800:A000
+    mov ax, 0xBA00
+    mov es, ax
+    mov di, di
+    
+    mov cx,4000
+draw01:
+    mov al ,01010101b
+    mov byte [es:di],al
+    inc di
+    loop draw01
+    
+    mov cx,4000
+draw10:
+    mov al ,10101010b
+    mov byte [es:di],al
+    inc di
+    loop draw10
+
+hlt_loop:
+    cli
+    hlt
+    jmp hlt_loop
+
+times 1024-($-$$) db 0
+```
+
+</details>
+
