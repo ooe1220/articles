@@ -1,4 +1,4 @@
-<img width="692" height="514" alt="截图 2026-04-27 21-05-48" src="https://github.com/user-attachments/assets/11d3a3fa-5bab-42ad-a0d2-7eb2f8edf5cc" /><img width="692" height="514" alt="截图 2026-04-27 21-05-48" src="https://github.com/user-attachments/assets/c6345059-9b46-46e9-a79c-bc99d43a6e7e" /># 
+# 
 
 VRAMは`0xB8000`から`320×200/4(1バイト4ピクセル)=16000()`の領域。
 
