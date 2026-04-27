@@ -1,4 +1,4 @@
-# 
+<img width="692" height="514" alt="截图 2026-04-27 21-05-48" src="https://github.com/user-attachments/assets/11d3a3fa-5bab-42ad-a0d2-7eb2f8edf5cc" /><img width="692" height="514" alt="截图 2026-04-27 21-05-48" src="https://github.com/user-attachments/assets/c6345059-9b46-46e9-a79c-bc99d43a6e7e" /># 
 
 VRAMは`0xB8000`から`320×200/4(1バイト4ピクセル)=16000()`の領域。
 
@@ -32,8 +32,13 @@ nasm -f bin test.asm -o test.bin
 qemu-system-i386 -hda test.bin -boot a -no-reboot
  
 lsblk
-sudo dd if=font.bin of=/dev/sdb bs=512 count=2 conv=notrunc
+sudo dd if=test.bin of=/dev/sdb bs=512 count=2 conv=notrunc
 ```
+
+奇数行には書き込んでおらず、偶数行のみ描画されており、縞模様が出来ている。
+<img width="692" height="514" alt="截图 2026-04-27 21-05-48" src="https://github.com/user-attachments/assets/d4699fe0-b295-4bfd-908c-a26304f45827" />
+<img width="2359" height="1769" alt="3eb380dc1ce538" src="https://github.com/user-attachments/assets/2b49bcaa-a138-4ac1-b754-28a887c3ed7f" />
+
 
 <details>
 <summary>test.asm</summary>
