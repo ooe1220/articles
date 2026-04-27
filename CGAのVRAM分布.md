@@ -111,7 +111,11 @@ times 1024-($-$$) db 0
 
 # 奇数
 
+分かり辛いが奇数行に書き込まれている
+<img width="692" height="514" alt="截图 2026-04-27 21-32-58" src="https://github.com/user-attachments/assets/56e570b8-9f28-46e9-9240-1de47effd416" />
 
+<img width="2359" height="1769" alt="7bd42f82a760c" src="https://github.com/user-attachments/assets/d2321b22-abc0-4ff7-b1a3-05c07124c404" />
+実機では何故か少しずれてしまった。
 
 <details>
 <summary>test.asm</summary>
