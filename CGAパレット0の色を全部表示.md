@@ -1,0 +1,119 @@
+
+# パレット0の色を全部出す
+
+<img width="692" height="514" alt="图片" src="https://github.com/user-attachments/assets/694c0987-a0d0-4bac-a82f-82c5ab79eb84" />
+
+![Uploading 773f7d2a5b4918.jpg…]()
+
+
+```
+パレット0（初期）：
+
+    色0：背景色
+    色1：水色
+    色2：紫
+    色3：白
+```
+
+```
+; nasm -f bin test.asm -o test.bin
+; qemu-system-i386 -hda test.bin -boot a -no-reboot
+; 
+; lsblk
+; sudo dd if=test.bin of=/dev/sdb bs=512 count=2 conv=notrunc
+
+ 
+org 0x7C00
+
+start:
+    xor ax, ax
+    mov ds, ax
+    mov es, ax
+    mov ss, ax
+    mov sp, 0x7C00
+
+    ; ディスクから第2セクタを 0x7E00 に読み込む
+    mov ah, 0x02        ; INT 13h 2: 読み込み
+    mov al, 1           ; 読み込むセクタ数 = 1
+    mov ch, 0           ; シリンダ = 0
+    mov cl, 2           ; セクタ番号 = 2（1始まり）
+    mov dh, 0           ; ヘッド = 0
+    mov dl, 0x80        ; ドライブ番号
+    mov bx, 0x7E00      ; 読み込み先アドレス
+    int 0x13
+    jc disk_error       ; エラー時
+
+    ; 読み込んだコードへ跳ぶ（第2セクタ）
+    jmp 0x0000:0x7E00
+
+disk_error:
+    cli
+    hlt
+
+times 510-($-$$) db 0
+dw 0xAA55
+
+    ; CGA互換 320x200 4色
+    mov ax, 0x0004
+    int 0x10
+    
+    
+    ; 一度に偶数行と奇数行を描画
+    mov di, 0       ; 偶数行開始
+    mov si, 0x2000  ; 奇数行開始
+    
+    ; ES = 0xB800 VRAM先頭
+    mov ax, 0xB800
+    mov es, ax
+
+    mov cx, 80 * 20  ; 1行80バイト × 20行分
+draw01:
+    ; 偶数行 (B800:偶数オフセット)
+    mov al, 01010101b
+    mov [es:di], al
+    
+    ; 奇数行 (B800:奇数オフセット)
+    mov al, 01010101b
+    mov [es:si], al
+    
+    inc di
+    inc si
+    loop draw01
+    
+    mov cx, 80 * 20
+draw10:
+
+    mov al, 10101010b
+    mov [es:di], al
+    
+    mov al, 10101010b
+    mov [es:si], al
+    
+    inc di
+    inc si
+    loop draw10
+
+    mov cx, 80 * 20
+draw11:
+    mov al, 11111111b
+    mov [es:di], al
+    
+    mov al, 11111111b
+    mov [es:si], al
+    
+    inc di
+    inc si
+    loop draw11
+
+
+hlt_loop:
+    cli
+    hlt
+    jmp hlt_loop
+
+times 1024-($-$$) db 0
+```
+
+パレット切り替え、輝度の変更は使用通りに試しているがまだうまくいっていない。
+
+
