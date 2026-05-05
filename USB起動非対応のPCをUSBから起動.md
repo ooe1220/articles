@@ -201,4 +201,21 @@ wodim: fifo was 0 times empty and 0 times full, min fill was 100%.
 
 </details>
 
+# USB書き込み
 
+```bash
+lsblk
+sudo umount /dev/sdb*
+sudo dd if=FD14LITE.img of=/dev/sdb bs=4M status=progress conv=fsync
+```
+
+USBからの読み込みに失敗してしまう。
+<img width="2358" height="3144" alt="40a6941130ce9" src="https://github.com/user-attachments/assets/082cecfa-4b3a-4edf-9136-766a126186b6" />
+<img width="2358" height="3144" alt="92ae1a9363381" src="https://github.com/user-attachments/assets/75ca02a8-2acc-4081-93f4-ac2f36c549db" />
+
+QEMU上で書き込んだUSBから起動してみる
+```
+sudo qemu-system-i386 -drive file=/dev/sdc,format=raw
+```
+<img width="724" height="462" alt="image" src="https://github.com/user-attachments/assets/2e07fbb7-1d3d-4f71-8ec8-8e29a1e98645" />
+USBの書き込みには失敗していない。理由は分からない。
