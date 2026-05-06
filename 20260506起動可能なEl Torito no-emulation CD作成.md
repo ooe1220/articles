@@ -1,19 +1,21 @@
-
+# 起動CDの作成
 ```
 nasm -f bin boot.asm -o boot.bin
 
 mkdir iso
 cp boot.bin iso/
 
+#  -b boot.bin   : このファイルを起動用に使う
+#  -c boot.cat   : 起動情報
+#  -no-emul-boot : 先頭512バイトのMBR方式でなく、boot.catを参照して起動
+#  -boot-load-size 1 : 1セクタ(2048バイト)読む
 xorriso -as mkisofs \
   -o os.iso \
-  -b boot.bin \       # このファイルを起動用に使う
-  -c boot.cat \       # 起動情報
-  -no-emul-boot \     # フロッピーとして扱わない)~
-  -boot-load-size 1 \ # 1セクタ(2048バイト)読む
+  -b boot.bin \
+  -c boot.cat \
+  -no-emul-boot \
+  -boot-load-size 1 \
   iso
-
-qemu-system-i386 -cdrom os.iso -m 512
 ```
 
 ```boot.asm
@@ -46,3 +48,12 @@ msg db "Hello------", 0
 times 512-($-$$) db 0
 ```
 
+# 起動
+
+## qemu
+```bash
+qemu-system-i386 -cdrom os.iso -m 512
+```
+<img width="724" height="462" alt="image" src="https://github.com/user-attachments/assets/3b57306c-34ec-4297-876c-f2848713c29f" />
+
+## 実機
