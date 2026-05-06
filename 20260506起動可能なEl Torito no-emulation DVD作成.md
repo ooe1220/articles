@@ -97,6 +97,9 @@ builtin_dd: 192*2KB out @ average infx1352KBps
 ※CDに書き込む場合は以下を試す
 [PuppyLinuxを試す](https://qiita.com/earthen94/items/9e8a843d9da3e6bd6032)
 
+<img width="2359" height="1769" alt="c65630911699b" src="https://github.com/user-attachments/assets/591a3169-cda5-4469-86d8-ff3c24352865" />
+
+
 # 検証環境
 機種 : VOSTRO 1540
 CPU : Intel(R) Celeron(R) CPU P4600 @ 2.00GHz
@@ -105,3 +108,6 @@ OS : Linux Lite 6.6
 NASM : 2.15.05
 GDB : GNU gdb (Ubuntu 12.1-0ubuntu1~22.04.2) 12.1
 ※実家に帰省中。昔のパソコン。
+
+<img width="2359" height="1769" alt="903464b4cc64a" src="https://github.com/user-attachments/assets/94b00e9c-15c7-49ff-b4ae-b41948bc3afb" />
+
