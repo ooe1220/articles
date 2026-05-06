@@ -1,38 +1,50 @@
 # 起動CDの作成
+
 ```bash
 nasm -f bin boot.asm -o boot.bin
 
 mkdir iso
 cp boot.bin iso/
 
-#  -b boot.bin   : このファイルを起動用に使う
-#  -c boot.cat   : 起動情報
-#  -no-emul-boot : 先頭512バイトのMBR方式でなく、boot.catを参照して起動
-#  -boot-load-size 1 : 1セクタ(2048バイト)読む
 xorriso -as mkisofs \
   -o os.iso \
   -b boot.bin \
   -c boot.cat \
   -no-emul-boot \
-  -boot-load-size 1 \
+  -boot-load-size 4 \
   iso
+
+qemu-system-i386 -cdrom os.iso -m 512
 ```
 
 ```boot.asm
 BITS 16
-ORG 0x7C00
+ORG 0
 
 start:
+    cli
+    cld
+
+    xor ax, ax
+    mov ss, ax
+    mov sp, 0x7C00
+
+    push cs
+    pop ds
+
+    call here
+here:
+    pop si
+    add si, msg - here
+
     mov ax, 0xB800
     mov es, ax
     xor di, di
 
-    mov si, msg
-
 .print:
     lodsb
-    cmp al, 0
-    je .hang
+    test al, al
+    jz .hang
 
     mov ah, 0x07        ; 属性（白）
     stosw               ; [ES:DI] = AX (文字+属性)
@@ -45,7 +57,7 @@ start:
 
 msg db "Hello------", 0
 
-times 512-($-$$) db 0
+times 2048-($-$$) db 0
 ```
 
 # 起動
@@ -56,7 +68,17 @@ qemu-system-i386 -cdrom os.iso -m 512
 ```
 <img width="724" height="462" alt="image" src="https://github.com/user-attachments/assets/3b57306c-34ec-4297-876c-f2848713c29f" />
 
+
 ## 実機
+
+前回書き込んだデータが残っている場合は一旦初期化する。
+```
+ linuxlite  ~  kaihatsu  sudo dvd+rw-format -blank=fast /dev/sr0
+[sudo] password for linuxlite: 
+* BD/DVD±RW/-RAM format utility by <appro@fy.chalmers.se>, version 7.1.
+* 4.7GB DVD-RW media in Sequential mode detected.
+* blanking 100.0%
+```
 
 `-dry-run`をつけて試してから、DVDに書き込む。
 
