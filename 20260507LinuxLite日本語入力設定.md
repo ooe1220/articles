@@ -39,3 +39,6 @@ ibus restart
 CPU : Intel(R) Core(TM) i7-3667U CPU @ 2.00GHz
 MEM : 7.6Gi
 OS : Linux Lite 6.6
+
+<img width="2359" height="1769" alt="73777e22b2319" src="https://github.com/user-attachments/assets/90269257-7c1a-49f1-9452-68967caecb9b" />
+
