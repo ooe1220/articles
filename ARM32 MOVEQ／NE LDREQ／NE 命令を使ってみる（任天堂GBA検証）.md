@@ -93,7 +93,7 @@ arm-none-eabi-objcopy -O binary tmp/out.elf tmp/out.gba
 # GBA上でデバッグする為の土台
 
 ※`logo.bin`は以下の記事を参照して用意して下さい。
-(GBA自作コードを実機で動作させる手順)[https://qiita.com/earthen94/items/6ca53e74ea3833c63575]
+[GBA自作コードを実機で動作させる手順](https://qiita.com/earthen94/items/6ca53e74ea3833c63575)
 
 <details>
 <summary>link.ld</summary>
