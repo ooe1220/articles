@@ -206,16 +206,6 @@ void gfx_set_text_color(uint16_t color);
 </details>
 
 <details>
-<summary>link.ld</summary>
-
-```link.ld
-
-
-```
-
-</details>
-
-<details>
 <summary>gfx.c</summary>
 
 ```gfx.c
