@@ -1,0 +1,173 @@
+
+# 初めに
+
+Github投稿:
+問題のある状態 : 
+https://github.com/ooe1220/usbdriver/tree/b21eb0a389c62af60e237845eef27e2f4974a0b2
+解決した状態 : 
+https://github.com/ooe1220/usbdriver/tree/8d4078a3e3819886e224d2f879112005ac75b351
+
+USBドライバを開発しているのですが、問題が起こりました。
+呼び出していない関数を追加しただけで、CPU例外が起きたのか再起動を繰り返すようになりました。
+
+# 問題の関数
+問題の関数は以下です。どこからも呼び出していないのですが、追加しただけで再起動を繰り返します。
+関数中に`while(1);`を入れても止まらないので関数自体は実行されていません。
+
+```pci.c
+uint32_t pci_read_class_code(uint8_t bus, uint8_t dev, uint8_t func)
+{
+    return pci_read32(bus, dev, func, 0x08);
+}
+```
+
+```pci.h
+uint32_t pci_read_class_code(uint8_t bus, uint8_t dev, uint8_t func);
+```
+
+前提
+- `DVD`の`EL Torit`形式で起動している為、`boot.asm`の中からカーネルを読み込んでいない。BIOSが一気に全てメモリ上に読み込んでいる。
+- `UEFI`は使用していない。
+
+
+# 問題点を探る
+
+問題の関数のアドレスを見てみる
+
+```bash
+test@test-fujitsu:~/kaihatsu/usbdriver$ nm tmp/kernel.elf | grep pci_read_class_code
+000081ce T pci_read_class_code
+```
+
+```linker.ld
+ENTRY(start)
+
+SECTIONS {
+    . = 0x7E00;
+
+    .text : {
+        *(.text*)
+    }
+
+    .rodata : {
+        *(.rodata*)
+    }
+
+    .data : {
+        *(.data*)
+    }
+
+    .bss : {
+        *(.bss*)
+        *(COMMON)
+    }
+}
+```
+
+```bash
+test@test-fujitsu:~/kaihatsu/usbdriver$ objdump -h tmp/kernel.elf
+nm -n tmp/kernel.elf
+
+tmp/kernel.elf：     文件格式 elf32-i386
+
+节：
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000061b  00007e00  00007e00  00000e00  2**4
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .rodata       00000020  0000841b  0000841b  0000141b  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  2 .eh_frame     00000200  0000843c  0000843c  0000143c  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  3 .got.plt      0000000c  0000863c  0000863c  0000163c  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  4 .bss          00000004  00008648  00008648  00001648  2**2
+                  ALLOC
+  5 .comment      0000002d  00000000  00000000  00001648  2**0
+                  CONTENTS, READONLY
+00007e00 T start
+00007e2a t gdt_start
+00007e32 t gdt_code
+00007e3a t gdt_data
+00007e42 t gdt_descriptor
+00007e42 t gdt_end
+00007e48 t pm_start
+00007e60 t pm_start.hlt_loop
+00007e63 T kernel_main
+0000802e T __x86.get_pc_thunk.bx
+00008032 t outl
+00008049 t inl
+00008067 t pci_config_addr
+000080c9 T pci_read32
+0000812e T pci_read_vendor_device
+00008188 T pci_read_header_type
+000081ce T pci_read_class_code
+0000820b T pci_is_uhci
+00008227 T __x86.get_pc_thunk.ax
+0000822b T putc
+000082d4 T puts
+00008309 T put_hex4
+0000838c T put_hex2
+00008417 T __x86.get_pc_thunk.cx
+0000863c d _GLOBAL_OFFSET_TABLE_
+00008648 b pos.0
+```
+
+ベアメタルに必要の無いもの
+
+`gcc`オプションから削除
+- `__x86.get_pc_thunk.ax`,`__x86.get_pc_thunk.cx`,`__x86.get_pc_thunk.bx`関数
+
+`linker.ldから生成しないように設定`
+- `.eh_frame `
+- `.got.plt`
+- `_GLOBAL_OFFSET_TABLE_`
+- `.eh_frame`
+- `.got.plt`
+- `_GLOBAL_OFFSET_TABLE_`
+
+※実際にどう書き換えたかは`GITHUB`を参照。
+
+書き換えると再起動をせず正常に動作するようになった。
+
+# 書き換えた後に生成されたELFの関数及びセグメントを確認
+
+無駄なものが消えている
+
+```bash
+test@test-fujitsu:~/kaihatsu/usbdriver$ objdump -h tmp/kernel.elf
+
+tmp/kernel.elf：     文件格式 elf32-i386
+
+节：
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000575  00007e00  00007e00  00000e00  2**4
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .rodata       00000020  00008375  00008375  00001375  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  2 .bss          00000004  00008398  00008398  00001395  2**2
+                  ALLOC
+test@test-fujitsu:~/kaihatsu/usbdriver$ nm -n tmp/kernel.elf
+00007e00 T start
+00007e2a t gdt_start
+00007e32 t gdt_code
+00007e3a t gdt_data
+00007e42 t gdt_descriptor
+00007e42 t gdt_end
+00007e48 t pm_start
+00007e60 t pm_start.hlt_loop
+00007e63 T kernel_main
+00008014 t outl
+00008021 t inl
+00008035 t pci_config_addr
+0000808d T pci_read32
+000080e8 T pci_read_vendor_device
+00008138 T pci_read_header_type
+00008174 T pci_read_class_code
+000081a7 T pci_is_uhci
+000081b9 T putc
+00008250 T puts
+0000827b T put_hex4
+000082f4 T put_hex2
+00008398 b pos.0
+```
+
