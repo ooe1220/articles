@@ -16,7 +16,8 @@ d1:
 ```
 
 8が点滅している
-a
+<img width="1552" height="1089" alt="image" src="https://github.com/user-attachments/assets/e6d75aad-fba5-4325-a143-365b65b0cff5" />
+
 
 
 
