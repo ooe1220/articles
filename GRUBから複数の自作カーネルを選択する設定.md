@@ -1,11 +1,9 @@
-GRUBのgrub.cfg設定
-
 # 目的
 
 `grub.cfg`を編集し、2つのOSを選択出来る様にします。
 OSと言っても実験用に書いた画面に文字を表示するだけのプログラムですが。。。
 
-(GRUBからCカーネルを起動する)[https://qiita.com/earthen94/items/a99f9081cbfdd59eb8ea]
+[GRUBからCカーネルを起動する](https://qiita.com/earthen94/items/a99f9081cbfdd59eb8ea)
 
 # 選択画面の設定
 
@@ -174,6 +172,10 @@ SECTIONS {
 ```
 qemu-system-i386 -cdrom myos.iso
 ```
+<img width="772" height="514" alt="截图 2026-08-12 20-24-23" src="https://github.com/user-attachments/assets/5d9acb73-5982-4edf-a2e9-6f55823b745f" />
+<img width="772" height="514" alt="截图 2026-08-12 20-24-27" src="https://github.com/user-attachments/assets/c9f58a6e-038f-476d-a9e3-b78fe6e893cd" />
+<img width="772" height="514" alt="截图 2026-08-12 20-24-39" src="https://github.com/user-attachments/assets/dbf41b92-fd4a-4f0c-8ed7-4c3b2d7bb00c" />
+
 
 ## dynabook SS M10 11L/2実機
 
@@ -182,5 +184,8 @@ sudo dvd+rw-format -blank=fast /dev/sr0
 sudo growisofs -dvd-compat -Z /dev/sr0=myos.iso
 ```
 
+<img width="4096" height="3072" alt="7129c1e6de648" src="https://github.com/user-attachments/assets/ed31d395-ac76-4606-8129-91226ca3a136" />
+![Uploading 430459d722f688.jpeg…]()
+![Uploading 18a66cb4fac58.jpeg…]()
 
 
