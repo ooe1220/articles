@@ -185,7 +185,8 @@ sudo growisofs -dvd-compat -Z /dev/sr0=myos.iso
 ```
 
 <img width="4096" height="3072" alt="7129c1e6de648" src="https://github.com/user-attachments/assets/ed31d395-ac76-4606-8129-91226ca3a136" />
-![Uploading 430459d722f688.jpeg…]()
-![Uploading 18a66cb4fac58.jpeg…]()
+<img width="4096" height="3072" alt="430459d722f688" src="https://github.com/user-attachments/assets/82a38181-14cd-4f30-9e24-996c6111ba93" />
+<img width="4096" height="3072" alt="18a66cb4fac58" src="https://github.com/user-attachments/assets/5dba192e-1455-4814-b65f-40cc758901d5" />
+
 
 
