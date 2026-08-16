@@ -116,7 +116,7 @@ static inline u8 set_a20(u8 cond) {
 }
 ```
 
-SeaBIOSのA20開放機能で8042方式は使ってい 。定義はあるが、どこからも参照されていない。
+SeaBIOSのA20開放機能で8042方式は使っていないようです 。定義はありますが、どこからも参照されていません。
 ```
 test@test-fujitsu:~/kaihatsu/seabios$ grep -Rni "A20Kybd" src/
 src/std/LegacyBios.h:501:  UINT32                            A20Kybd : 1;      ///< A20 controller by keyboard controller.
@@ -127,9 +127,9 @@ test@test-fujitsu:~/kaihatsu/seabios$
 
 https://gitlab.freedesktop.org/gnu-grub/grub/-/tree/master
 
-GRUBではBIOS→0x92→キーボードの順番でA20の開放を試している。
-成功した時点で後続の処理は飛ばす。
-GRUBが起動した時点では既にBIOSが開放している事が殆どだと思うので恐らくこの処理を通ることは少ないと思われる。
+GRUBではBIOS→0x92→キーボードの順番でA20の開放を試しています。
+成功した時点で後続の処理は飛ばします。
+GRUBが起動した時点では既にBIOSが開放している事が殆どだと思うので恐らくこの処理を通ることは少ないと思われます。
 
 ```grub-core/boot/i386/pc/startup_raw.S
 
