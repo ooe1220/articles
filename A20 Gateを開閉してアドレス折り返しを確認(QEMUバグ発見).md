@@ -132,36 +132,6 @@ GRUBではBIOS→0x92→キーボードの順番でA20の開放を試してい�
 GRUBが起動した時点では既にBIOSが開放している事が殆どだと思うので恐らくこの処理を通ることは少ないと思われます。
 
 ```grub-core/boot/i386/pc/startup_raw.S
-
-
-```
-sudo apt install build-essential gnu-efi qemu-system-x86 ovmf
-```
-
-
-```bash
-
-gcc \
-  -I/usr/include/efi -I/usr/include/efi/x86_64 \
-  -fno-stack-protector -fpic -fshort-wchar \
-  -c hello.c -o hello.o
-  
-ld \
-  -nostdlib -shared -Bsymbolic \
-  -L/usr/lib \
-  -T /usr/lib/elf_x86_64_efi.lds \
-  /usr/lib/crt0-efi-x86_64.o hello.o \
-  -o hello.so -lgnuefi
-  
-  
-objcopy --target=pei-x86-64 hello.so BOOTX64.EFI
-```
-
-```
-mkdir -p esp/EFI/BOOT
-cp BOOTX64.EFI esp/EFI/BOOT/
-```
-
 /*
  * grub_gate_a20(void)
  *
