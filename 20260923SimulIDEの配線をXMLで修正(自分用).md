@@ -89,3 +89,56 @@ GUIで配線すると、どうしてもくっついてしまいます。
 
 座標の規則は分かりませんが、始点と終点のピンを指定してXMLを編集すると配線できることが分かりました。
 この方法で配線した回路が意図したように動作するかは次回確かめます。
+
+# 20260924 追記
+
+ 折れ曲がる座標と思われる`pointList`を0へ変更しても動作に影響はありませんでした。
+
+`led1.sim`: 保存したまま
+`led2.sim`: `pointList`を全て0に変更
+
+<img width="1281" height="755" alt="led1" src="https://github.com/user-attachments/assets/ad37616d-27cb-485c-be63-60cd54167a6f" />
+
+```led1.sim
+<circuit version="1.1.0-SR0" rev="1917" stepSize="1000000" stepsPS="1000000" NLsteps="100000" reaStep="1000000" animate="0" >
+
+<item itemtype="Fixed Voltage" CircId="Fixed Voltage-1" mainComp="false" Show_id="false" Show_Val="false" Pos="-200,-52" rotation="0" hflip="1" vflip="1" label="Fixed Voltage-1" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Voltage="5 V" Out="true" />
+
+<item itemtype="Resistor" CircId="Resistor-2" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="-148,-52" rotation="0" hflip="1" vflip="1" label="Resistor-2" idLabPos="-16,-24" labelrot="0" valLabPos="-16,6" valLabRot="0" Resistance="100 Ω" />
+
+<item itemtype="Led" CircId="Led-3" mainComp="false" Show_id="false" Show_Val="false" Pos="-96,-52" rotation="0" hflip="1" vflip="1" label="Led-3" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Color="Yellow" Grounded="false" Threshold="2.4 V" MaxCurrent="30 mA" Resistance="0.6 Ω" />
+
+<item itemtype="Ground" CircId="Ground-4" mainComp="false" Show_id="false" Show_Val="false" Pos="-64,-16" rotation="0" hflip="1" vflip="1" label="Ground-4" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
+
+<item itemtype="Connector" uid="Connector-1" startpinid="Fixed Voltage-1-outnod" endpinid="Resistor-2-lPin" pointList="-184,-52,-164,-52" />
+
+<item itemtype="Connector" uid="Connector-2" startpinid="Resistor-2-rPin" endpinid="Led-3-lPin" pointList="-132,-52,-112,-52" />
+
+<item itemtype="Connector" uid="Connector-3" startpinid="Led-3-rPin" endpinid="Ground-4-Gnd" pointList="-80,-52,-64,-52,-64,-32" />
+
+</circuit>
+```
+
+
+<img width="1281" height="755" alt="led2" src="https://github.com/user-attachments/assets/80c676a1-8d58-49eb-93ce-db0baa610e6b" />
+
+```led2.sim
+<circuit version="1.1.0-SR0" rev="1917" stepSize="1000000" stepsPS="1000000" NLsteps="100000" reaStep="1000000" animate="0" >
+
+<item itemtype="Fixed Voltage" CircId="Fixed Voltage-1" mainComp="false" Show_id="false" Show_Val="false" Pos="-200,-52" rotation="0" hflip="1" vflip="1" label="Fixed Voltage-1" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Voltage="5 V" Out="true" />
+
+<item itemtype="Resistor" CircId="Resistor-2" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="-148,-52" rotation="0" hflip="1" vflip="1" label="Resistor-2" idLabPos="-16,-24" labelrot="0" valLabPos="-16,6" valLabRot="0" Resistance="100 Ω" />
+
+<item itemtype="Led" CircId="Led-3" mainComp="false" Show_id="false" Show_Val="false" Pos="-96,-52" rotation="0" hflip="1" vflip="1" label="Led-3" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Color="Yellow" Grounded="false" Threshold="2.4 V" MaxCurrent="30 mA" Resistance="0.6 Ω" />
+
+<item itemtype="Ground" CircId="Ground-4" mainComp="false" Show_id="false" Show_Val="false" Pos="-64,-16" rotation="0" hflip="1" vflip="1" label="Ground-4" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
+
+<item itemtype="Connector" uid="Connector-1" startpinid="Fixed Voltage-1-outnod" endpinid="Resistor-2-lPin" pointList="0,0,0,0" />
+
+<item itemtype="Connector" uid="Connector-2" startpinid="Resistor-2-rPin" endpinid="Led-3-lPin" pointList="0,0,0,0" />
+
+<item itemtype="Connector" uid="Connector-3" startpinid="Led-3-rPin" endpinid="Ground-4-Gnd" pointList="0,0,0,0,0,0" />
+
+</circuit>
+```
+
