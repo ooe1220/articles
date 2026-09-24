@@ -3,7 +3,6 @@
 
 <img width="1281" height="755" alt="z80_1" src="https://github.com/user-attachments/assets/3ad6f1b4-22f9-4c6b-81b9-ebbd4a53c2d7" />
 
-
 ```z80_1.sim1
 <circuit version="1.1.0-SR0" rev="1917" stepSize="1000000" stepsPS="1000000" NLsteps="100000" reaStep="1000000" animate="0" >
 
@@ -24,9 +23,20 @@
 </circuit>
 ```
 
+# 各ピンのXML上の名前を調べる
+
 `startpinid` `endpinid`の名称はチップの`CircId` + `-` + 各ピンの名称となっている。
 
-z80
+メモリ側のピン
+A0-A7 : `in0`～
+D0-D7 : `out0`～
+WE : `Pin_We`
+OE : `Pin_outEnable`
+CS : `Pin_Cs`
+
+Z80側のピン
 A0-A7 : `PORTA0`～
 D0-D7 : `PORTD0`～
-
+WR : `CPORT0WR`
+RD : `CPORT0RD`
+MREQ : `CPORT0MREQ`
