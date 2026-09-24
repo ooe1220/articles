@@ -17,6 +17,7 @@ https://qiita.com/earthen94/items/28752ae240e9b1c6e116
 
 simlideというソフトでNAND回路にLEDを繋ぎ視覚的に観察します。※電気が流れていることを視覚的に見る為にLEDを接続しただけで通常は繋ぎません。
 1の場合は電圧がかかりLEDが光り、0の時は消えます。
+※入力にしか電源を繋いでおらず、両方0の時は電源が無いので実際の回路では光らない気もしますが、筆者は電子工作が得意でないので、ちょっと分かりません。NANDの説明にはこれで事足ります。
 
 [simulideを導入](https://qiita.com/earthen94/items/37a4a18d94f4e4571754)
 
@@ -112,18 +113,18 @@ simlideというソフトでNAND回路にLEDを繋ぎ視覚的に観察します
 
 </details>
 
-a=0 b=0の時、出力が光る
+a=0 b=0の時、出力が1となり光る
 <img width="1398" height="797" alt="00" src="https://github.com/user-attachments/assets/f4956854-2044-49b5-b777-3579590957e1" />
 
-a=0 b=1の時、出力が光る
+a=0 b=1の時、出力が1となり光る
 <img width="1398" height="797" alt="01" src="https://github.com/user-attachments/assets/d9cafe52-3b20-4f08-b6f8-6ebfc3a671cb" />
 
 
-a=0 b=1の時、出力が光る
+a=1 b=0の時、出力が1となり光る
 <img width="1398" height="797" alt="10" src="https://github.com/user-attachments/assets/9b3dddc5-c3de-44a1-8ee1-4d159e4a8e46" />
 
 
-a=1 b=1の時、出力が消える
+a=1 b=1の時、出力が0となり消える
 <img width="1398" height="797" alt="11" src="https://github.com/user-attachments/assets/6200cb38-016c-4449-93c2-83e061fc02d8" />
 
 
