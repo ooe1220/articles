@@ -74,7 +74,7 @@ a=1 時、出力が0となりLEDは光らない
 </details>
 
 
-# VerilogでNAND素子を作る
+# VerilogでNOT素子を作る
 
 コンパイル及び実行
 ```bash
