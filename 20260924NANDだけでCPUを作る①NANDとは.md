@@ -113,8 +113,7 @@ simlideというソフトでNAND回路にLEDを繋ぎ視覚的に観察します
 </details>
 
 a=0 b=0の時、出力が光る
-<img width="1398" height="797" alt="00" src="https://github.com/user-attachments/assets/78086d3a-b83d-456b-bb83-7280925b49a1" />
-
+<img width="1398" height="797" alt="00" src="https://github.com/user-attachments/assets/f4956854-2044-49b5-b777-3579590957e1" />
 
 a=0 b=1の時、出力が光る
 <img width="1398" height="797" alt="01" src="https://github.com/user-attachments/assets/d9cafe52-3b20-4f08-b6f8-6ebfc3a671cb" />
