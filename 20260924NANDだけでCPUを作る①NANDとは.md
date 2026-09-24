@@ -13,13 +13,16 @@ https://qiita.com/earthen94/items/28752ae240e9b1c6e116
 | 1 | 0 | 1 |
 | 1 | 1 | 0 |
 
+今後CPUを設計する際はこのNANDを最小単位として、構成していきます。
+NANDがトランジスタをどう組み合わせて実現しているかはここでは触れません。
+
 # 動きを見てみる
 
-simlideというソフトでNAND回路にLEDを繋ぎ視覚的に観察します。※電気が流れていることを視覚的に見る為にLEDを接続しただけで通常は繋ぎません。
+SimulIDEというソフトでNAND回路にLEDを繋ぎ視覚的に観察します。※電気が流れていることを視覚的に見る為にLEDを接続しただけで通常は繋ぎません。
 1の場合は電圧がかかりLEDが光り、0の時は消えます。
-※入力にしか電源を繋いでおらず、両方0の時は電源が無いので実際の回路では光らない気もしますが、筆者は電子工作が得意でないので、ちょっと分かりません。NANDの説明にはこれで事足ります。
+※入力にしか電源を繋いでおらず、両方0の時は電源が無いので実際の回路では光らない気もしますが、筆者は電子工作が得意でないので、ちょっと分かりません。NANDの説明にはこれで事足りるので深入りしません。
 
-[simulideを導入](https://qiita.com/earthen94/items/37a4a18d94f4e4571754)
+[SimulIDEを導入](https://qiita.com/earthen94/items/37a4a18d94f4e4571754)
 
 起動コマンド
 ```bash
@@ -192,7 +195,7 @@ endmodule
 
 # 動作結果
 
-入力と出力が本物のNANDと一致しています。
+入力と出力が真理値表と一致しています
 ```bash
 test@test-fujitsu:~/kaihatsu/nandcpu$ iverilog -o nand.out nand.v tb_nand.v
 test@test-fujitsu:~/kaihatsu/nandcpu$ vvp nand.out
