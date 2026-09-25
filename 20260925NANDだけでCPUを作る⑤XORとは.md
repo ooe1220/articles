@@ -279,8 +279,9 @@ A B | Y
 ```bash
 gtkwave wave.vcd
 ```
+<img width="1020" height="521" alt="wave" src="https://github.com/user-attachments/assets/1664cbb8-d146-4fb4-bf1e-ecc89d83f69a" />
 
-※AND記事では設計した回路を可視化していますが、何故かORからは回路を生成してもNAND単体の図しか生成されないので原因を調査中です。
+※AND記事では設計した回路を可視化していますが、何故かORの記事以降は回路を生成してもNAND単体の図しか生成されないので原因を調査中です。
 
 
 
