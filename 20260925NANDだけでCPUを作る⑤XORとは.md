@@ -152,6 +152,9 @@ nandcpu/
 └── tb_or.v   # 動作確認用
 ```
 
+xorに関して、どこの部品がどこに対応するかを図で示しました。
+<img width="346" height="184" alt="inout" src="https://github.com/user-attachments/assets/31c56ffe-8d7e-4a87-b75c-ce8a5cbd6019" />
+
 ```nand_gate_lib.v
 `timescale 1ns/1ps
 
@@ -225,8 +228,8 @@ module xor_gate (
 );
 
     wire n1; // A NAND B
-    wire n2; // A NAND n2
-    wire n3; // n1 NAND B
+    wire n2; // A NAND n1
+    wire n3; // B NAND n1
     
     nand_gate g1(a, b, n1);
     nand_gate g2(a, n1, n2);
