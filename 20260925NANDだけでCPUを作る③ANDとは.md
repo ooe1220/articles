@@ -1,7 +1,7 @@
 # 目次
 https://qiita.com/earthen94/items/28752ae240e9b1c6e116
 
-# ANDとは
+# AND(論理積)とは
 
 NANDの否定であり、両方が1の時だけ1を出力し、それ以外は0を出力します。
 
