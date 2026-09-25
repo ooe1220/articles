@@ -140,6 +140,9 @@ nandcpu/
 └── tb_or.v   # 動作確認用
 ```
 
+orに関して、どこの部品がどこに対応するかを図で示しました。
+<img width="262" height="160" alt="inut" src="https://github.com/user-attachments/assets/c15a89be-9c28-4e79-8586-97699c0205ff" />
+
 ```nand_gate_lib.v
 `timescale 1ns/1ps
 
