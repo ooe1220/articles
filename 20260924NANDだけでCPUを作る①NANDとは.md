@@ -26,10 +26,8 @@ SimulIDEというソフトでNAND回路にLEDを繋ぎ視覚的に観察しま�
 
 起動コマンド
 ```bash
-/opt/simulide-110sr0/simulide
+/opt/simulide-110sr0/simulide nand.sim1
 ```
-
-いつでも復元できるように回路をXMLで保存したもの
 
 <details>
 <summary>nand.sim1</summary>
@@ -37,73 +35,41 @@ SimulIDEというソフトでNAND回路にLEDを繋ぎ視覚的に観察しま�
 ```nand.sim1
 <circuit version="1.1.0-SR0" rev="1917" stepSize="1000000" stepsPS="1000000" NLsteps="100000" reaStep="1000000" animate="0" >
 
-<item itemtype="Switch" CircId="Switch-5" mainComp="false" Show_id="false" Show_Val="false" Pos="-464,-116" rotation="0" hflip="1" vflip="1" label="Switch-5" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Norm_Close="false" DT="false" Poles="1" />
+<item itemtype="Led" CircId="Led-6" mainComp="false" Show_id="false" Show_Val="false" Pos="-364,-188" rotation="0" hflip="1" vflip="1" label="Led-6" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Color="Yellow" Grounded="false" Threshold="2.4 V" MaxCurrent="30 mA" Resistance="0.6 Ω" />
 
-<item itemtype="Led" CircId="Led-6" mainComp="false" Show_id="false" Show_Val="false" Pos="-368,-220" rotation="0" hflip="1" vflip="1" label="Led-6" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Color="Yellow" Grounded="false" Threshold="2.4 V" MaxCurrent="30 mA" Resistance="0.6 Ω" />
-
-<item itemtype="Led" CircId="Led-7" mainComp="false" Show_id="false" Show_Val="false" Pos="-368,-64" rotation="0" hflip="1" vflip="1" label="Led-7" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Color="Yellow" Grounded="false" Threshold="2.4 V" MaxCurrent="30 mA" Resistance="0.6 Ω" />
+<item itemtype="Led" CircId="Led-7" mainComp="false" Show_id="false" Show_Val="false" Pos="-372,-104" rotation="0" hflip="1" vflip="1" label="Led-7" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Color="Yellow" Grounded="false" Threshold="2.4 V" MaxCurrent="30 mA" Resistance="0.6 Ω" />
 
 <item itemtype="Led" CircId="Led-8" mainComp="false" Show_id="false" Show_Val="false" Pos="-256,-140" rotation="0" hflip="1" vflip="1" label="Led-8" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Color="Yellow" Grounded="false" Threshold="2.4 V" MaxCurrent="30 mA" Resistance="0.6 Ω" />
 
 <item itemtype="And Gate" CircId="And Gate-9" mainComp="false" Show_id="false" Show_Val="false" Pos="-348,-140" rotation="0" hflip="1" vflip="1" label="And Gate-9" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1000 MΩ" Num_Inputs="2" Invert_Inputs="false" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" initHigh="false" Inverted="true" Open_Collector="false" Tpd_ps="10 ns" Tr_ps="3 ns" Tf_ps="4 ns" />
 
-<item itemtype="Fixed Voltage" CircId="Fixed Voltage-10" mainComp="false" Show_id="false" Show_Val="false" Pos="-520,-164" rotation="0" hflip="1" vflip="1" label="Fixed Voltage-10" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Voltage="5 V" Out="true" />
+<item itemtype="Fixed Voltage" CircId="Fixed Voltage-10" mainComp="false" Show_id="false" Show_Val="false" Pos="-460,-152" rotation="0" hflip="1" vflip="1" label="Fixed Voltage-10" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Voltage="5 V" Out="false" />
 
-<item itemtype="Fixed Voltage" CircId="Fixed Voltage-11" mainComp="false" Show_id="false" Show_Val="false" Pos="-520,-116" rotation="0" hflip="1" vflip="1" label="Fixed Voltage-11" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Voltage="5 V" Out="true" />
+<item itemtype="Fixed Voltage" CircId="Fixed Voltage-11" mainComp="false" Show_id="false" Show_Val="false" Pos="-460,-124" rotation="0" hflip="1" vflip="1" label="Fixed Voltage-11" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Voltage="5 V" Out="false" />
 
-<item itemtype="Resistor" CircId="Resistor-12" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="-416,-220" rotation="0" hflip="1" vflip="1" label="Resistor-12" idLabPos="-16,-24" labelrot="0" valLabPos="-16,6" valLabRot="0" Resistance="70 Ω" />
+<item itemtype="Resistor" CircId="Resistor-12" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="-412,-188" rotation="0" hflip="1" vflip="1" label="Resistor-12" idLabPos="-16,-24" labelrot="0" valLabPos="-16,6" valLabRot="0" Resistance="70 Ω" />
 
-<item itemtype="Resistor" CircId="Resistor-13" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="-412,-64" rotation="0" hflip="1" vflip="1" label="Resistor-13" idLabPos="-16,-24" labelrot="0" valLabPos="-16,6" valLabRot="0" Resistance="70 Ω" />
+<item itemtype="Resistor" CircId="Resistor-13" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="-416,-104" rotation="0" hflip="1" vflip="1" label="Resistor-13" idLabPos="-16,-24" labelrot="0" valLabPos="-16,6" valLabRot="0" Resistance="70 Ω" />
 
-<item itemtype="Ground" CircId="Ground-16" mainComp="false" Show_id="false" Show_Val="false" Pos="-348,-196" rotation="0" hflip="1" vflip="1" label="Ground-16" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
+<item itemtype="Ground" CircId="Ground-16" mainComp="false" Show_id="false" Show_Val="false" Pos="-348,-164" rotation="0" hflip="1" vflip="1" label="Ground-16" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
 
-<item itemtype="Switch" CircId="Switch-25" mainComp="false" Show_id="false" Show_Val="false" Pos="-464,-164" rotation="0" hflip="1" vflip="1" label="Switch-25" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Norm_Close="false" DT="false" Poles="1" />
-
-<item itemtype="Ground" CircId="Ground-29" mainComp="false" Show_id="false" Show_Val="false" Pos="-344,-44" rotation="0" hflip="1" vflip="1" label="Ground-29" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
+<item itemtype="Ground" CircId="Ground-29" mainComp="false" Show_id="false" Show_Val="false" Pos="-348,-84" rotation="0" hflip="1" vflip="1" label="Ground-29" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
 
 <item itemtype="Resistor" CircId="Resistor-32" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="-300,-140" rotation="0" hflip="1" vflip="1" label="Resistor-32" idLabPos="-16,-24" labelrot="0" valLabPos="-16,6" valLabRot="0" Resistance="50 Ω" />
 
 <item itemtype="Ground" CircId="Ground-33" mainComp="false" Show_id="false" Show_Val="false" Pos="-220,-104" rotation="0" hflip="1" vflip="1" label="Ground-33" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
 
-<item itemtype="Node" CircId="Node-26" mainComp="false" Pos="-432,-220" />
+<item itemtype="Node" CircId="Node-43" mainComp="false" Pos="-432,-152" />
 
-<item itemtype="Node" CircId="Node-27" mainComp="false" Pos="-436,-164" />
+<item itemtype="Node" CircId="Node-65" mainComp="false" Pos="-432,-124" />
 
-<item itemtype="Node" CircId="Node-30" mainComp="false" Pos="-428,-64" />
+<item itemtype="Connector" uid="Connector-15" startpinid="Resistor-12-rPin" endpinid="Led-6-lPin" pointList="-396,-188,-380,-188" />
 
-<item itemtype="Node" CircId="Node-31" mainComp="false" Pos="-428,-116" />
+<item itemtype="Connector" uid="Connector-62" startpinid="Led-6-rPin" endpinid="Ground-16-Gnd" pointList="-348,-188,-348,-180" />
 
-<item itemtype="Connector" uid="Connector-7" startpinid="Fixed Voltage-11-outnod" endpinid="Switch-5-pinP0" pointList="-504,-116,-480,-116" />
+<item itemtype="Connector" uid="Connector-63" startpinid="Led-7-rPin" endpinid="Ground-29-Gnd" pointList="-356,-104,-348,-104,-348,-100" />
 
-<item itemtype="Connector" uid="Connector-15" startpinid="Resistor-12-rPin" endpinid="Led-6-lPin" pointList="-400,-220,-384,-220" />
-
-<item itemtype="Connector" uid="Connector-51" startpinid="Fixed Voltage-10-outnod" endpinid="Switch-25-pinP0" pointList="-504,-164,-480,-164" />
-
-<item itemtype="Connector" uid="Connector-54" startpinid="Node-26-1" endpinid="Node-27-1" pointList="-432,-220,-432,-164,-436,-164" />
-
-<item itemtype="Connector" uid="Connector-55" startpinid="Resistor-12-lPin" endpinid="Node-26-0" pointList="-432,-220,-432,-220" />
-
-<item itemtype="Connector" uid="Connector-56" startpinid="Node-26-2" endpinid="Resistor-12-lPin" pointList="-432,-220,-432,-220" />
-
-<item itemtype="Connector" uid="Connector-57" startpinid="Switch-25-switch0pinN" endpinid="Node-27-0" pointList="-448,-164,-436,-164" />
-
-<item itemtype="Connector" uid="Connector-58" startpinid="Node-27-2" endpinid="And Gate-9-in0" pointList="-436,-164,-364,-164,-364,-144" />
-
-<item itemtype="Connector" uid="Connector-62" startpinid="Led-6-rPin" endpinid="Ground-16-Gnd" pointList="-352,-220,-348,-220,-348,-212" />
-
-<item itemtype="Connector" uid="Connector-63" startpinid="Led-7-rPin" endpinid="Ground-29-Gnd" pointList="-352,-64,-344,-64,-344,-60" />
-
-<item itemtype="Connector" uid="Connector-64" startpinid="Resistor-13-rPin" endpinid="Led-7-lPin" pointList="-396,-64,-384,-64" />
-
-<item itemtype="Connector" uid="Connector-66" startpinid="Node-30-1" endpinid="Node-31-1" pointList="-428,-64,-428,-116" />
-
-<item itemtype="Connector" uid="Connector-67" startpinid="Resistor-13-lPin" endpinid="Node-30-0" pointList="-428,-64,-428,-64" />
-
-<item itemtype="Connector" uid="Connector-68" startpinid="Node-30-2" endpinid="Resistor-13-lPin" pointList="-428,-64,-428,-64" />
-
-<item itemtype="Connector" uid="Connector-69" startpinid="Switch-5-switch0pinN" endpinid="Node-31-0" pointList="-448,-116,-428,-116" />
-
-<item itemtype="Connector" uid="Connector-70" startpinid="Node-31-2" endpinid="And Gate-9-in1" pointList="-428,-116,-364,-116,-364,-136" />
+<item itemtype="Connector" uid="Connector-64" startpinid="Resistor-13-rPin" endpinid="Led-7-lPin" pointList="-400,-104,-388,-104" />
 
 <item itemtype="Connector" uid="Connector-71" startpinid="And Gate-9-out" endpinid="Resistor-32-lPin" pointList="-332,-140,-316,-140" />
 
@@ -111,25 +77,34 @@ SimulIDEというソフトでNAND回路にLEDを繋ぎ視覚的に観察しま�
 
 <item itemtype="Connector" uid="Connector-73" startpinid="Led-8-rPin" endpinid="Ground-33-Gnd" pointList="-240,-140,-220,-140,-220,-120" />
 
+<item itemtype="Connector" uid="Connector-118" startpinid="Resistor-12-lPin" endpinid="Node-43-1" pointList="-428,-188,-428,-152,-432,-152" />
+
+<item itemtype="Connector" uid="Connector-119" startpinid="Fixed Voltage-10-outnod" endpinid="Node-43-0" pointList="-444,-152,-432,-152" />
+
+<item itemtype="Connector" uid="Connector-120" startpinid="Node-43-2" endpinid="And Gate-9-in0" pointList="-432,-152,-364,-152,-364,-144" />
+
+<item itemtype="Connector" uid="Connector-154" startpinid="Resistor-13-lPin" endpinid="Node-65-1" pointList="-432,-104,-432,-124" />
+
+<item itemtype="Connector" uid="Connector-155" startpinid="Fixed Voltage-11-outnod" endpinid="Node-65-0" pointList="-444,-124,-432,-124" />
+
+<item itemtype="Connector" uid="Connector-156" startpinid="Node-65-2" endpinid="And Gate-9-in1" pointList="-432,-124,-364,-124,-364,-136" />
+
 </circuit>
 ```
 
 </details>
 
 a=0 b=0の時、出力が1となり光る
-<img width="1398" height="797" alt="00" src="https://github.com/user-attachments/assets/f4956854-2044-49b5-b777-3579590957e1" />
+<img width="1423" height="596" alt="00" src="https://github.com/user-attachments/assets/df9ea7f3-99e6-4c07-964f-a58fe8fa4177" />
 
 a=0 b=1の時、出力が1となり光る
-<img width="1398" height="797" alt="01" src="https://github.com/user-attachments/assets/d9cafe52-3b20-4f08-b6f8-6ebfc3a671cb" />
-
+<img width="1423" height="596" alt="01" src="https://github.com/user-attachments/assets/1a308857-cb77-4117-a3a4-d758a04105b6" />
 
 a=1 b=0の時、出力が1となり光る
-<img width="1398" height="797" alt="10" src="https://github.com/user-attachments/assets/9b3dddc5-c3de-44a1-8ee1-4d159e4a8e46" />
-
+<img width="1423" height="596" alt="10" src="https://github.com/user-attachments/assets/75e10e3d-7457-4f24-984f-e99936b8f870" />
 
 a=1 b=1の時、出力が0となり消える
-<img width="1398" height="797" alt="11" src="https://github.com/user-attachments/assets/6200cb38-016c-4449-93c2-83e061fc02d8" />
-
+<img width="1423" height="596" alt="11" src="https://github.com/user-attachments/assets/0c1f8f56-74cb-459a-9f50-5d22521c8bda" />
 
 
 # VerilogでNAND素子を作る
