@@ -126,6 +126,9 @@ nandcpu/
 └── tb_and.v   # 動作確認用
 ```
 
+ANDに関して、どこの部品がどこに対応するかを図で示しました。
+<img width="288" height="76" alt="INOUT" src="https://github.com/user-attachments/assets/7e145e43-92b4-47a0-933d-413787b830f1" />
+
 ```nand_gate_lib.v
 `timescale 1ns/1ps
 
