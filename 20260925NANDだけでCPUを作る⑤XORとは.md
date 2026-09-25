@@ -137,7 +137,7 @@ https://stacked-tip.hateblo.jp/entry/20170826/1503737327
 - a=1 b=1の時、出力が0となり光らない
 <img width="1290" height="770" alt="11" src="https://github.com/user-attachments/assets/45d2649f-7ee2-402d-abd4-c1f56deb87cc" />
 
-# VerilogでAND素子を作る
+# VerilogでXOR素子を作る
 
 コンパイル及び実行
 ```bash
@@ -149,7 +149,7 @@ vvp test.out
 ```
 nandcpu/
 ├── nand_gate_lib.v # NAND構成の論理素子
-└── tb_or.v   # 動作確認用
+└── tb_xor.v   # 動作確認用
 ```
 
 xorに関して、どこの部品がどこに対応するかを図で示しました。
