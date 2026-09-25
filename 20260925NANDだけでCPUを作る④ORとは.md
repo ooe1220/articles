@@ -1,7 +1,7 @@
 # 目次
 https://qiita.com/earthen94/items/28752ae240e9b1c6e116
 
-#ORとは
+# ORとは
 
 aとbいずれかが1であれば出力は1となります。
 
@@ -18,7 +18,7 @@ aとbいずれかが1であれば出力は1となります。
 
 ※ドモルガンの法則を使って式変形をすると何故この回路になるのか証明できますが、説明しているサイトは五万とあるので割愛します。NANDを以下の様に並べたらOR回路になります。
 
-式変形 としてはこうなります。
+式変形としてはこうなります。
 $Y = \overline{\overline{A} \cdot \overline{B}} = A + B$
 
 NOTは前の記事でNANDで作れることを証明しているので、これを組み合わせればOR回路が作れます。
@@ -28,7 +28,7 @@ NOTは前の記事でNANDで作れることを証明しているので、これ�
 ```
 
 <details>
-<summary>not.sim1</summary>
+<summary>or.sim1</summary>
 
 ```or.sim1
 <circuit version="1.1.0-SR0" rev="1917" stepSize="1000000" stepsPS="1000000" NLsteps="100000" reaStep="1000000" animate="0" >
@@ -125,7 +125,7 @@ NOTは前の記事でNANDで作れることを証明しているので、これ�
 <img width="1373" height="857" alt="11" src="https://github.com/user-attachments/assets/70f60d41-be9e-4a94-9232-0b468a9e1992" />
 
 
-# VerilogでAND素子を作る
+# VerilogでOR素子を作る
 
 コンパイル及び実行
 ```bash
