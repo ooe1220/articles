@@ -107,7 +107,7 @@ ANDはNANDと逆の出力になればよいので、NAND出力の先にNOTを繋
 - a=1 b=0の時、出力が0となり消える
   <img width="1281" height="573" alt="10" src="https://github.com/user-attachments/assets/164d6c49-d5ad-49cf-a66c-5bb7b1c53eef" />
 
-- a=1 b=1の時、出力が0となり消える
+- a=1 b=1の時、出力が1となり光る
   <img width="1281" height="573" alt="11" src="https://github.com/user-attachments/assets/a1f3dd38-29d4-4275-b57f-9cff92614797" />
 
 
@@ -202,6 +202,7 @@ endmodule
 
 # 動作結果
 
+ANDの真理値表と一致しました。
 ```bash
 test@test-fujitsu:~/kaihatsu/nandcpu$ iverilog -o test.out nand_gate_lib.v tb_and.v
 test@test-fujitsu:~/kaihatsu/nandcpu$ vvp test.out
