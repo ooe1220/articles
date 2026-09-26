@@ -71,9 +71,66 @@ module not_gate (
 
     nand_gate u_not (
         .a(a), // 入力aをNANDのAに繋ぐ
-        .b(a), // 同じくNANDのBにも繋ぐ
-        .y(y)
+        .b(a), // 入力aをNANDのBにも繋ぐ
+        .y(y)  // NANDの出力をそのままNOTの出力とする
     );
 
+endmodule
+```
+
+# AND
+
+AND真理値表
+| a | b | y |
+|---|---|---|
+| 0 | 0 | 0 |
+| 0 | 1 | 0 |
+| 1 | 0 | 0 |
+| 1 | 1 | 1 |
+
+
+ANDの真理値表はNANDの真理表から導出できます。
+
+| a | b | y |$\overline{y}$|
+|---|---|---|------|
+| 0 | 0 | 1 |  0   |
+| 0 | 1 | 1 |  0   |
+| 1 | 0 | 1 |  0   |
+| 1 | 1 | 0 |  1   |
+
+
+NANDの式は
+
+$$
+y=\overline{a\cdot b}
+$$
+
+NANDの出力をNOTすると、
+
+$$
+y=\overline{\overline{a\cdot b}}
+$$
+
+二重否定を取り除くと、
+
+$$
+\boxed{y=a\cdot b}
+$$
+
+となり、AND（論理積）になります。
+
+VerilogにてNANDを用いてAND回路を設計します。
+<img width="449" height="116" alt="AND drawio" src="https://github.com/user-attachments/assets/e658224b-7b57-42a2-9beb-061e627f8f5a" />
+
+```v
+module and_gate (
+    input a,
+    input b,
+    output y
+);
+
+    wire n;
+    nand_gate g1(a, b, n); // 一つ目のNANDの出力を
+    nand_gate g2(n, n, y); // NOTに繋ぐ(NANDの入力両方に繋ぐ)
 endmodule
 ```
