@@ -248,3 +248,15 @@ $$
 
 ## 方法②
 
+この式でもXORを表せてNANDも4個で済みます。しかし式の導出がややこしく筆者も理解出来ていません。
+
+$$
+y =
+\overline{
+\overline{a\overline{ab}}
+\cdot
+\overline{\overline{ab}b}
+}
+$$
+
+# 半加算器
