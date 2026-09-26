@@ -28,9 +28,9 @@ AレジスタとBレジスタの各ビットを、それぞれ対応する全加
 
 
 <details>
-<summary>fadder.sim1</summary>
+<summary>8bitadder.sim1</summary>
 
-```fadder.sim1
+```8bitadder.sim1
 <circuit version="1.1.0-SR0" rev="1917" stepSize="1000000" stepsPS="1000000" NLsteps="100000" reaStep="1000000" animate="0" >
 
 <item itemtype="FullAdder" CircId="FullAdder-1" mainComp="false" Show_id="false" Show_Val="false" Pos="-448,-252" rotation="0" hflip="1" vflip="1" label="FullAdder-1" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1000 MΩ" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" pd_n="1 _Gates" Tpd_ps="10 ns" Tr_ps="3 ns" Tf_ps="4 ns" />
