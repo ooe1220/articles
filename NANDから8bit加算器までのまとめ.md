@@ -248,7 +248,7 @@ $$
 
 ## 方法②
 
-この式でもXORを表せてNANDも4個で済みます。式の導出がややこしく筆者も理解出来ていませんが、真理値表でXORになっていることだけ確かめて使います。
+この式でもXORを表せてNANDも4個で済みます。式の導出がややこしく筆者も理解出来ていません、その為真理値表でXORになっていることだけ確かめて使います。
 
 $$
 y =
@@ -265,5 +265,24 @@ $$
 | 0 | 1 | 1 | 0 | 1 | 1 | 0 | 1 |
 | 1 | 0 | 1 | 1 | 0 | 0 | 1 | 1 |
 | 1 | 1 | 0 | 0 | 1 | 0 | 1 | 0 |
+
+```v
+module xor_gate (
+    input a,
+    input b,
+    output y
+);
+
+    wire n1; // A NAND B
+    wire n2; // A NAND n1
+    wire n3; // B NAND n1
+    
+    nand_gate g1(a, b, n1);
+    nand_gate g2(a, n1, n2);
+    nand_gate g3(n1, b, n3);
+    nand_gate g4(n2, n3, y);
+
+endmodule
+```
 
 # 半加算器
