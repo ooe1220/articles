@@ -250,6 +250,7 @@ $$
 
 この式でもXORを表せてNANDも4個で済みます。式の導出がややこしく筆者も理解出来ていません、その為真理値表でXORになっていることだけ確かめて使います。
 
+
 $$
 y =
 \overline{
@@ -265,6 +266,9 @@ $$
 | 0 | 1 | 1 | 0 | 1 | 1 | 0 | 1 |
 | 1 | 0 | 1 | 1 | 0 | 0 | 1 | 1 |
 | 1 | 1 | 0 | 0 | 1 | 0 | 1 | 0 |
+
+<img width="366" height="136" alt="xor drawio" src="https://github.com/user-attachments/assets/0ded8422-ec84-49c7-b111-08019dc6d335" />
+
 
 ```v
 module xor_gate (
