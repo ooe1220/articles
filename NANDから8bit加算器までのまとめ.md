@@ -58,7 +58,7 @@ $$
 
 となり、NOT（論理否定）になります。
 
-VerilogにてNANDを用いてNOT回路を設計します。
+Verilogでは以下のように設計しました。
 <img width="311" height="82" alt="NOT drawio" src="https://github.com/user-attachments/assets/8ddaa44a-dcc0-420a-8f39-58ae131f557e" />
 
 ```v
@@ -120,7 +120,7 @@ $$
 
 となり、AND（論理積）になります。
 
-VerilogにてNANDを用いてAND回路を設計します。
+Verilogでは以下のように設計しました。
 <img width="449" height="116" alt="AND drawio" src="https://github.com/user-attachments/assets/e658224b-7b57-42a2-9beb-061e627f8f5a" />
 
 ```v
@@ -133,5 +133,58 @@ module and_gate (
     wire n;
     nand_gate g1(a, b, n); // 一つ目のNANDの出力を
     nand_gate g2(n, n, y); // NOTに繋ぐ(NANDの入力両方に繋ぐ)
+endmodule
+```
+
+# OR
+
+真理値表
+| a | b | y |
+|---|---|---|
+| 0 | 0 | 0 |
+| 0 | 1 | 1 |
+| 1 | 0 | 1 |
+| 1 | 1 | 1 |
+
+NOTをNANDから組み立てられることは、NOTの節で証明しています。
+そこで、$a$ と $b$ をそれぞれNOTに通し、その出力をNANDに入力します。
+| a | b | $\overline{a}$ | $\overline{b}$ | $y=\overline{\overline{a}\cdot\overline{b}}$ |
+|---|---|---|---|---|
+| 0 | 0 | 1 | 1 | 0 |
+| 0 | 1 | 1 | 0 | 1 |
+| 1 | 0 | 0 | 1 | 1 |
+| 1 | 1 | 0 | 0 | 1 |
+
+これはド・モルガンの法則からも確認できます。
+
+$$
+y=\overline{\overline{a}\cdot\overline{b}}
+$$
+
+$$
+\boxed{y=a+b}
+$$
+
+となり、OR（論理和）になります。
+
+Verilogでは以下のように設計しました。
+<img width="509" height="244" alt="OR drawio" src="https://github.com/user-attachments/assets/b98cdc54-a9ef-422d-a240-406b0884782a" />
+
+```v
+// ========================================
+// OR素子
+// ========================================
+module or_gate (
+    input a,
+    input b,
+    output y
+);
+    wire not_a;
+    wire not_b;
+    
+    nand_gate u_not_a(a, a, not_a); // aを反転(NAND入力2本共a)
+    nand_gate u_not_b(b, b, not_b); // bを反転(NAND入力2本共b)
+    
+    nand_gate nand_nota_notb(not_a, not_b, y); // NOT(a)とNOT(b)をNAND→OR
 endmodule
 ```
