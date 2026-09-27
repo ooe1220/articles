@@ -425,10 +425,10 @@ endmodule
 
 今回はNAND素子から全加算器を組み立てていますが、`assign result = A + B + Cin;`のように書くと1行で済んでしまいます。
 序で書きましたがこれが去年VerilogでCPUを設計した時に、自分で回路を組んだ気がしないと感じた違和感の正体でした。
-https://qiita.com/earthen94/items/51bed33a6742dfe5fa90
-[Verilogで作る4ビットCPU入門：シミュレーションと回路図生成まで](https://qiita.com/earthen94/items/51bed33a6742dfe5fa90)
 
 ~~こんな記事消してしまおうかとも思いますが~~
+
+[Verilogで作る4ビットCPU入門：シミュレーションと回路図生成まで](https://qiita.com/earthen94/items/51bed33a6742dfe5fa90)
 
 今回は原理を理解する為、効率を捨てて敢えて泥臭い書き方をしています。
 
