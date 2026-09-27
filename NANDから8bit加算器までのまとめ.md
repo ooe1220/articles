@@ -89,7 +89,7 @@ AND真理値表
 | 1 | 1 | 1 |
 
 
-ANDの真理値表はNANDの真理表から導出できます。
+NANDの出力を更にNOTすることで、ANDを作ることができます。
 
 NANDの真理表
 | a | b | y |$\overline{y}$|
@@ -290,3 +290,90 @@ endmodule
 ```
 
 # 半加算器
+
+# 全加算器
+
+# Verilogの抽象化
+
+今回はNAND素子から全加算器を組み立てていますが、`assign result = A + B + Cin;`のように書くと1行で済んでしまいます。
+序で書きましたがこれが去年VerilogでCPUを設計した時に、自分で回路を組んだ気がしないと感じた違和感の正体でした。
+https://qiita.com/earthen94/items/51bed33a6742dfe5fa90
+[Verilogで作る4ビットCPU入門：シミュレーションと回路図生成まで](https://qiita.com/earthen94/items/51bed33a6742dfe5fa90)
+
+~~こんな記事消してしまおうかとも思いますが~~
+
+(特にNANDに縛らなくても既存の論理素子を使用してもいいですが)1から書くと内部の回路まで意識して書くことができます。
+
+以下は論理回路を意識せずに、Verilogの抽象化を利用して記述した場合の例です。
+```bash
+test@test-fujitsu:~/kaihatsu/nandcpu$ iverilog -o test.out adder_8bit_free.v
+test@test-fujitsu:~/kaihatsu/nandcpu$ vvp test.out
+VCD info: dumpfile wave.vcd opened for output.
+Time |   A   |   B   | Cin |  Sum  | Cout
+   0 | 00000000 | 00000000 |  0  | 00000000 |  0
+10000 | 00110010 | 00111100 |  0  | 01101110 |  0
+20000 | 11111111 | 00000001 |  0  | 00000000 |  1
+30000 | 11111111 | 11111111 |  0  | 11111110 |  1
+40000 | 01010101 | 10101010 |  0  | 11111111 |  0
+50000 | 00000000 | 00000000 |  1  | 00000001 |  0
+```
+
+```adder_8bit_free.v
+`timescale 1ns/1ps
+
+module tb_adder_8bit;
+    reg  [7:0] A, B;
+    reg        Cin;
+    wire [7:0] Sum;
+    wire       Cout;
+
+    adder_8bit uut (
+        .A(A),
+        .B(B),
+        .Cin(Cin),
+        .Sum(Sum),
+        .Cout(Cout)
+    );
+
+    initial begin
+        $dumpfile("wave.vcd");
+        $dumpvars(0, tb_adder_8bit);
+
+        $display("Time |   A   |   B   | Cin |  Sum  | Cout");
+        $monitor("%4t | %b | %b |  %b  | %b |  %b",
+                  $time, A, B, Cin, Sum, Cout);
+
+        // 複数通り検証 切り替え
+        A = 8'd0;   B = 8'd0;   Cin = 1'b0; #10;
+        A = 8'd50;  B = 8'd60;  Cin = 1'b0; #10;
+        A = 8'd255; B = 8'd1;   Cin = 1'b0; #10;
+        A = 8'd255; B = 8'd255; Cin = 1'b0; #10;
+        A = 8'd85;  B = 8'd170; Cin = 1'b0; #10;
+        A = 8'd0;   B = 8'd0;   Cin = 1'b1; #10;
+
+        $finish;
+    end
+endmodule
+
+module adder_8bit (
+    input  [7:0] A,    // 8bit値
+    input  [7:0] B,    // 8bit値
+    input        Cin, // 初期キャリー
+    output [7:0] Sum,  // 和
+    output       Cout  // 桁上がり
+);
+
+    // オーバーフロー検出用に1ビット広げた内部信号
+    wire [8:0] result;
+
+    // 9ビットとして計算することで、Coutを含めた結果が一気に求まる
+    assign result = A + B + Cin;
+    
+    // 下位8ビットがSum
+    assign Sum  = result[7:0];
+    
+    // 最上位ビットがCout
+    assign Cout = result[8];
+
+endmodule
+```
