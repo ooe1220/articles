@@ -308,7 +308,8 @@ endmodule
 コード可読性の為ここからはNANDをそのまま使用せず、NANDで構成したXORとANDを使います。
 
 <img width="221" height="173" alt="inout" src="https://github.com/user-attachments/assets/a1044156-49ff-4001-905f-e24fc675b9d2" />
-```bash
+
+```v
 module half_adder (
     input a,
     input b,
@@ -326,6 +327,104 @@ endmodule
 ```
 
 # 全加算器
+
+正直、筆者も原理を理解出来ておらず、定石の通りに回路を組んで真理値表の通りに動作することを確かめて使うに留めています。
+
+真理値表
+| A | B | Cin | Sum | Cout |
+|---|---|-----|-----|------|
+| 0 | 0 |  0  |  0  |  0   |
+| 0 | 0 |  1  |  1  |  0   |
+| 0 | 1 |  0  |  1  |  0   |
+| 0 | 1 |  1  |  0  |  1   |
+| 1 | 0 |  0  |  1  |  0   |
+| 1 | 0 |  1  |  0  |  1   |
+| 1 | 1 |  0  |  0  |  1   |
+| 1 | 1 |  1  |  1  |  1   |
+
+
+以下の回路をそのままコードへ落とし込みました。
+<img width="655" height="270" alt="faddr" src="https://github.com/user-attachments/assets/757ef6d1-f5ac-4b61-94b6-491cac8c0e1a" />
+
+```v
+module full_adder (
+    input A,
+    input B,
+    input Cin,
+    output Sum,
+    output Cout
+);
+
+    wire sum1;      // 1段目の half_adder の和
+    wire carry1;    // 1段目の half_adder の桁上がり
+    wire carry2;    // 2段目の half_adder の桁上がり
+
+    // 1段目: A + B
+    half_adder ha1 (
+        .a(A),
+        .b(B),
+        .sum(sum1),
+        .carry(carry1)
+    );
+
+    // 2段目: sum1 + Cin
+    half_adder ha2 (
+        .a(sum1),
+        .b(Cin),
+        .sum(Sum),
+        .carry(carry2)
+    );
+
+    // ORの部分
+    or_gate u_or (
+        .a(carry1),
+        .b(carry2),
+        .y(Cout)
+    );
+
+endmodule
+```
+
+# 8bit加算器
+
+```v
+module full_adder (
+    input A,
+    input B,
+    input Cin,
+    output Sum,
+    output Cout
+);
+
+    wire sum1;      // 1段目の half_adder の和
+    wire carry1;    // 1段目の half_adder の桁上がり
+    wire carry2;    // 2段目の half_adder の桁上がり
+
+    // 1段目: A + B
+    half_adder ha1 (
+        .a(A),
+        .b(B),
+        .sum(sum1),
+        .carry(carry1)
+    );
+
+    // 2段目: sum1 + Cin
+    half_adder ha2 (
+        .a(sum1),
+        .b(Cin),
+        .sum(Sum),
+        .carry(carry2)
+    );
+
+    // ORの部分
+    or_gate u_or (
+        .a(carry1),
+        .b(carry2),
+        .y(Cout)
+    );
+
+endmodule
+```
 
 # Verilogの抽象化
 
