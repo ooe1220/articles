@@ -291,6 +291,40 @@ endmodule
 
 # 半加算器
 
+真理値表
+| a | b | c | s |10進数|
+|---|---|---|---|------|
+| 0 | 0 | 0 | 0 |   0  |
+| 0 | 1 | 0 | 1 |   1  |
+| 1 | 0 | 0 | 1 |   1  |
+| 1 | 1 | 1 | 0 |   2  |
+
+以下の回路は等価です。
+<img width="517" height="273" alt="equal" src="https://github.com/user-attachments/assets/1b4164ac-f21a-4ad7-bdba-2a1b668ecd6a" />
+
+1ビット同士の足し算ですが、和は最大で2ビットになります。
+1の位がXOR、2の位がANDと丁度一致するのでこの特性を利用します。
+
+コード可読性の為ここからはNANDをそのまま使用せず、NANDで構成したXORとANDを使います。
+
+<img width="221" height="173" alt="inout" src="https://github.com/user-attachments/assets/a1044156-49ff-4001-905f-e24fc675b9d2" />
+```bash
+module half_adder (
+    input a,
+    input b,
+    output sum,
+    output carry
+);
+
+    // 和 → XORで計算
+    xor_gate u_xor (a, b, sum);
+    
+    // 桁上り → ANDで計算
+    and_gate u_and (a, b, carry);
+
+endmodule
+```
+
 # 全加算器
 
 # Verilogの抽象化
