@@ -1,5 +1,3 @@
-https://app.diagrams.net/
-
 # NAND
 
 今回設計するCPUに於ける最小単位としています。
