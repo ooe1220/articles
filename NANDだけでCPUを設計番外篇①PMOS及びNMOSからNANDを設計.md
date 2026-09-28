@@ -37,9 +37,7 @@ NOT回路はNANDより簡単で`pmos`及び`nmos`の動きを理解するのに�
 
 入力の電源を入れると消え、電源を切ると光ります。
 
-<img width="544" height="330" alt="截图 2026-09-28 22-06-55 - コピー" src="https://github.com/user-attachments/assets/366b6d78-5409-423f-9dc1-fca7cffa5ea0" />
-
-<img width="544" height="330" alt="截图 2026-09-28 22-07-02 - コピー" src="https://github.com/user-attachments/assets/101a7988-1ba1-4638-a26c-08e0ca1f4903" />
+<img width="1077" height="330" alt="截图 2026-09-28 22-06-55 - コピー" src="https://github.com/user-attachments/assets/f1e8825f-657f-4ff5-97b3-7bf8b0217621" />
 
 
 # NAND
