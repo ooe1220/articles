@@ -43,9 +43,6 @@ NOT回路はNANDより簡単で`pmos`及び`nmos`の動きを理解するのに�
 
 # NAND
 
-
-# 
-
 本篇ではNANDを最小単位とすると言った手前`nand(y,a,b)`を使用していますが、Verilogでは更に下層の`pmos`及び`nmos`が用意されており、これらから`nand`を作ることも出来ます。
 NAND以外の論理素子もNANDから構成しており、`nand_gate`の実装だけをPMOS及びNMOSに置き換えましたが、それらも問題なく動作しています。
 
@@ -58,9 +55,7 @@ nmos n1 (ドレイン, ソース, ゲート);
 設計した回路は以下の通りです。
 本来の記号で書くと複雑なので四角で簡略化しました。
 
-
-<img width="220" height="381" alt="nand_cmos drawio" src="https://github.com/user-attachments/assets/3d8eccf5-8617-4b39-8fc2-34c950cc5081" />
-
+<img width="266" height="381" alt="nand_cmos drawio" src="https://github.com/user-attachments/assets/39694fb0-6c00-4c8e-a340-3c0a5f36378a" />
 
 ```src/gates.v
 module nand_gate (
