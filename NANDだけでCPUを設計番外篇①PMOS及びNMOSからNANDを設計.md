@@ -43,8 +43,7 @@ NOT回路はNANDより簡単で`pmos`及び`nmos`の動きを理解するのに�
 # 
 
 本篇ではNANDを最小単位とすると言った手前`nand(y,a,b)`を使用していますが、Verilogでは更に下層の`pmos`及び`nmos`が用意されており、これらから`nand`を作ることも出来ます。
-
-他の論理素子は全てNANDで設計しているので、`nand_gate`の中身だけ`pmos`及び`nmos`から構成するように書き換えました。
+NAND以外の論理素子もNANDから構成しており、`nand_gate`の実装だけをPMOS及びNMOSに置き換えましたが、それらも問題なく動作しています。
 
 ```src/gates.v
 module nand_gate (
