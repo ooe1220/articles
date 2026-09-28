@@ -58,7 +58,9 @@ nmos n1 (ドレイン, ソース, ゲート);
 設計した回路は以下の通りです。
 本来の記号で書くと複雑なので四角で簡略化しました。
 
-<img width="400" height="171" alt="nand_cmos drawio" src="https://github.com/user-attachments/assets/4e65d2ba-102e-4a8c-8e5d-4698df3d743a" />
+
+<img width="220" height="381" alt="nand_cmos drawio" src="https://github.com/user-attachments/assets/3d8eccf5-8617-4b39-8fc2-34c950cc5081" />
+
 
 ```src/gates.v
 module nand_gate (
