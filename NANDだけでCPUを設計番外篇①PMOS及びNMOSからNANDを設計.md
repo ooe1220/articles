@@ -39,7 +39,7 @@ NOT回路はNANDより簡単で`pmos`及び`nmos`の動きを理解するのに�
 
 <img width="1077" height="330" alt="660370377-f1e8825f-657f-4ff5-97b3-7bf8b0217621" src="https://github.com/user-attachments/assets/36e6ac6f-6266-411f-be32-f9a56526d9d3" />
 
-※ソースを接地に繋いだら電気の入口になれない気がしますが、どうなんでしょう
+※ソースを接地に繋いだら電気の入口になれず源(Source)ではない気がしますが、どうなんでしょう
 
 # NAND
 
