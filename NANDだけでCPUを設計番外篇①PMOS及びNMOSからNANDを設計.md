@@ -34,12 +34,9 @@ Nは接地側、Pは電源側にソースを接続することが多い。
 NOT回路はNANDより簡単で`pmos`及び`nmos`の動きを理解するのにちょうど良いのでまずはNOT回路を見てみます。
 ※本篇のNOTはNAND2つから設計していますが、`pmos`及び`nmos`を使って設計することもできます。
 
-
+入力の電源を入れると消え、電源を切ると光ります。
 <img width="544" height="330" alt="截图 2026-09-28 22-06-55" src="https://github.com/user-attachments/assets/aa9ae801-34cf-4f3f-9e1d-fdf82e50e3a0" />
 <img width="544" height="330" alt="截图 2026-09-28 22-07-02" src="https://github.com/user-attachments/assets/b84b8f5e-3b3f-471b-bb24-9b5563dbbd52" />
-
-
-
 
 # NAND
 
