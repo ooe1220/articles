@@ -56,6 +56,8 @@ nmos n1 (ドレイン, ソース, ゲート);
 本来の記号で書くと複雑なので四角で簡略化しました。
 
 <img width="266" height="381" alt="nand_cmos drawio" src="https://github.com/user-attachments/assets/39694fb0-6c00-4c8e-a340-3c0a5f36378a" />
+PMOSを並列に繋いでいるため、a=0又はb=0の場合はPMOSのどちらかが通電して結果は1となる。
+両方が1の場合はPMOSが通電せず、接地に繋いだNMOSのみ通電し結果は0となる。
 
 ```src/gates.v
 module nand_gate (
