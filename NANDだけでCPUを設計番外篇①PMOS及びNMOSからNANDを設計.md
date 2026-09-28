@@ -35,8 +35,11 @@ NOT回路はNANDより簡単で`pmos`及び`nmos`の動きを理解するのに�
 ※本篇のNOTはNAND2つから設計していますが、`pmos`及び`nmos`を使って設計することもできます。
 
 入力の電源を入れると消え、電源を切ると光ります。
-<img width="544" height="330" alt="截图 2026-09-28 22-06-55" src="https://github.com/user-attachments/assets/aa9ae801-34cf-4f3f-9e1d-fdf82e50e3a0" />
-<img width="544" height="330" alt="截图 2026-09-28 22-07-02" src="https://github.com/user-attachments/assets/b84b8f5e-3b3f-471b-bb24-9b5563dbbd52" />
+
+<img width="544" height="330" alt="截图 2026-09-28 22-06-55 - コピー" src="https://github.com/user-attachments/assets/366b6d78-5409-423f-9dc1-fca7cffa5ea0" />
+
+<img width="544" height="330" alt="截图 2026-09-28 22-07-02 - コピー" src="https://github.com/user-attachments/assets/101a7988-1ba1-4638-a26c-08e0ca1f4903" />
+
 
 # NAND
 
