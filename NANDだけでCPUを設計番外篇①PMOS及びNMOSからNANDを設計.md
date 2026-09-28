@@ -35,9 +35,10 @@ NOT回路はNANDより簡単で`pmos`及び`nmos`の動きを理解するのに�
 ※本篇のNOTはNAND2つから設計していますが、`pmos`及び`nmos`を使って設計することもできます。
 
 
+<img width="544" height="330" alt="截图 2026-09-28 22-06-55" src="https://github.com/user-attachments/assets/aa9ae801-34cf-4f3f-9e1d-fdf82e50e3a0" />
+<img width="544" height="330" alt="截图 2026-09-28 22-07-02" src="https://github.com/user-attachments/assets/b84b8f5e-3b3f-471b-bb24-9b5563dbbd52" />
 
-<img width="1087" height="660" alt="截图 2026-09-28 22-06-55" src="https://github.com/user-attachments/assets/0346dd97-bdd4-4a14-b0e8-071c7c96b84b" />
-<img width="1087" height="660" alt="截图 2026-09-28 22-07-02" src="https://github.com/user-attachments/assets/f8d16bbc-b90e-47f5-ad35-cbfa8d97525e" />
+
 
 
 # NAND
