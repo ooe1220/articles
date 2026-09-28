@@ -35,6 +35,9 @@ NOT回路はNANDより簡単で`pmos`及び`nmos`の動きを理解するのに�
 ※本篇のNOTはNAND2つから設計していますが、`pmos`及び`nmos`を使って設計することもできます。
 
 
+<img width="544" height="330" alt="截图 2026-09-28 22-00-18" src="https://github.com/user-attachments/assets/173042a9-9f9a-4c86-8817-ee8a7d83bbc6" />
+
+<img width="544" height="330" alt="截图 2026-09-28 22-00-23" src="https://github.com/user-attachments/assets/195a4bc6-0a41-4ce7-9fd1-959a06352ba3" />
 
 
 # NAND
@@ -45,12 +48,20 @@ NOT回路はNANDより簡単で`pmos`及び`nmos`の動きを理解するのに�
 本篇ではNANDを最小単位とすると言った手前`nand(y,a,b)`を使用していますが、Verilogでは更に下層の`pmos`及び`nmos`が用意されており、これらから`nand`を作ることも出来ます。
 NAND以外の論理素子もNANDから構成しており、`nand_gate`の実装だけをPMOS及びNMOSに置き換えましたが、それらも問題なく動作しています。
 
+引数は以下の通りです。
+```
+pmos p1 (ドレイン, ソース, ゲート);
+nmos n1 (ドレイン, ソース, ゲート);
+```
+
 ```src/gates.v
 module nand_gate (
     input a,
     input b,
     output y
 );
+
+    wire net1;
 
     //nand(y,a,b); // 本篇    <----- コメントアウト
     
@@ -71,12 +82,9 @@ endmodule
 
 既成の`nand(y,a,b)`と同じように動作しました。
 NAND以外の素子もNANDから構成しており、それらも問題なく動作しています。
+
 ```
-A B | NAND NOT AND OR XOR
-0 0 |  1    1   0  0  0
-0 1 |  1    1   0  1  1
-1 0 |  1    0   0  1  1
-1 1 |  0    0   1  1  0
+
 ```
 
 全体のコードはgithub上に上げています。
